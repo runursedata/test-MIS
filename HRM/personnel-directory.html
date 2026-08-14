@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ทำเนียบบุคลากรคณะพยาบาลศาสตร์ มหาวิทยาลัยรามคำแหง สำหรับเผยแพร่ภายนอก" />
+  <meta property="og:title" content="ทำเนียบบุคลากร | คณะพยาบาลศาสตร์ มหาวิทยาลัยรามคำแหง" />
+  <meta property="og:description" content="ข้อมูลอาจารย์และบุคลากรสายสนับสนุน คณะพยาบาลศาสตร์ มหาวิทยาลัยรามคำแหง" />
+  <meta property="og:type" content="website" />
+  <title>ทำเนียบบุคลากร | คณะพยาบาลศาสตร์ มหาวิทยาลัยรามคำแหง</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <link rel="apple-touch-icon" href="logo.png" />
+  <link rel="preconnect" href="https://script.google.com" />
+  <link rel="preconnect" href="https://script.googleusercontent.com" />
+  <link rel="preconnect" href="https://lh3.googleusercontent.com" />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="public.css?v=20260812-public-title-prefix1" />
+</head>
+<body>
+  <header class="public-hero">
+    <div class="hero-shade"></div>
+    <nav class="public-nav">
+      <div class="nav-brand">
+        <img class="brand-mark" src="logo.png" alt="โลโก้คณะพยาบาลศาสตร์" decoding="async">
+        <span>Faculty of Nursing</span>
+      </div>
+      <div class="public-nav-actions">
+        <a href="../index.html#home">กลับหน้า MIS</a>
+        <a href="hrm-admin.html" data-hr-admin-only>ระบบจัดการ HR</a>
+      </div>
+    </nav>
+
+    <div class="hero-content">
+      <p>คณะพยาบาลศาสตร์ มหาวิทยาลัยรามคำแหง</p>
+      <h1>ทำเนียบบุคลากร</h1>
+      <span>ข้อมูลอาจารย์และบุคลากรสายสนับสนุนสำหรับเผยแพร่ภายนอก</span>
+    </div>
+  </header>
+
+  <main class="public-main">
+    <section id="directoryPanel" class="directory-panel">
+      <div class="directory-control">
+        <div class="directory-head">
+          <div>
+            <h2>รายชื่อบุคลากร</h2>
+            <p id="resultSummary">กำลังโหลดข้อมูล...</p>
+          </div>
+        </div>
+
+        <div class="group-chooser" aria-label="เลือกกลุ่มบุคลากร">
+          <button type="button" class="group-choice active" data-group="EXECUTIVE" onclick="setPublicGroup('EXECUTIVE')">
+            <span>คณะผู้บริหาร</span>
+          </button>
+          <button type="button" class="group-choice" data-group="LECTURER" onclick="setPublicGroup('LECTURER')">
+            <span>สายวิชาการ</span>
+          </button>
+          <button type="button" class="group-choice" data-group="STAFF" onclick="setPublicGroup('STAFF')">
+            <span>สายสนับสนุน</span>
+          </button>
+        </div>
+
+        <div class="public-filters">
+          <select id="publicDepartment" onchange="renderPublicDirectory()">
+            <option value="">ทุกกลุ่มวิชา</option>
+          </select>
+
+          <input id="publicSearch" placeholder="ค้นหาชื่อ ตำแหน่ง หรือกลุ่มวิชา" oninput="renderPublicDirectory()" />
+        </div>
+      </div>
+
+      <div id="publicCards" class="profile-grid">
+        <div class="loading-card skeleton-card">กำลังโหลด...</div>
+        <div class="loading-card skeleton-card" aria-hidden="true"></div>
+        <div class="loading-card skeleton-card" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="publicProfile" class="profile-detail hidden"></section>
+  </main>
+
+  <footer class="public-footer">© 2026 Faculty of Nursing, Ramkhamhaeng University | Developed by Lect. Siyathorn Ponjaroenpaisarn</footer>
+
+  <script src="public.min.js?v=20260812-public-title-prefix1" defer></script>
+</body>
+</html>
