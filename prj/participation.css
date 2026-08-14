@@ -1,0 +1,310 @@
+/*
+  PRJ Participation Stylesheet
+  - สไตล์เฉพาะหน้ารายงาน/บันทึกการเข้าร่วมกิจกรรม
+  - ดูแล toolbar, ตารางกิจกรรม, dashboard resize, ปุ่มเลือกเข้าร่วม และ responsive layout
+  - ใช้ร่วมกับ style.css ของ PRJ หลัก จึงควรแก้เฉพาะ selector ที่ขึ้นต้นด้วย participation เมื่อเป็นไปได้
+*/
+
+.participation-page .participation-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.participation-filterbar {
+  grid-template-columns: minmax(250px, 1.35fr) minmax(135px, .45fr) minmax(150px, .55fr) minmax(210px, .85fr) auto;
+}
+
+.participation-dashboard-panel {
+  margin-bottom: 10px;
+  resize: vertical;
+  overflow: hidden;
+  min-height: 210px;
+  max-height: 70vh;
+}
+
+.participation-dashboard-panel .table-header {
+  padding: 12px 18px;
+  align-items: center;
+}
+
+.participation-dashboard-panel .table-header h3 {
+  font-size: 20px;
+}
+
+.participation-dashboard-panel .table-header p {
+  margin-top: 3px;
+}
+
+.dashboard-filter-inline {
+  display: flex;
+  align-items: end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dashboard-filter-inline label {
+  min-width: 132px;
+  margin: 0;
+}
+
+.dashboard-filter-inline label span {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.dashboard-filter-inline select {
+  min-height: 40px;
+  padding: 8px 10px;
+}
+
+.participant-dashboard-wrap {
+  display: grid;
+  gap: 8px;
+  height: 300px;
+  min-height: 130px;
+  overflow: auto;
+  resize: vertical;
+  padding: 10px 16px 12px;
+}
+
+.participant-dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.participant-dashboard-card {
+  display: grid;
+  gap: 3px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #FBFDFF;
+}
+
+.participant-dashboard-card span,
+.participant-dashboard-card small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.participant-dashboard-card strong {
+  color: var(--navy);
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.participant-mission-summary {
+  display: grid;
+  gap: 6px;
+}
+
+.participant-mission-row {
+  display: grid;
+  grid-template-columns: minmax(220px, .52fr) minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.participant-mission-row strong {
+  display: block;
+  color: var(--navy);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.participant-mission-row span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.participant-mission-bars {
+  display: flex;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #EEF2F7;
+}
+
+.participant-mission-bars span {
+  min-width: 0;
+  height: 100%;
+}
+
+.participant-mission-bars .faculty {
+  background: var(--navy);
+}
+
+.participant-mission-bars .university {
+  background: var(--gold);
+}
+
+.empty-state.compact {
+  min-height: 90px;
+}
+
+.participation-table {
+  width: 100%;
+  min-width: 1080px;
+  table-layout: fixed;
+}
+
+.participant-report-panel,
+.activity-select-panel {
+  resize: vertical;
+  overflow: hidden;
+  min-height: 300px;
+  max-height: none;
+}
+
+.participant-report-scroll,
+.activity-select-scroll {
+  height: 560px;
+  min-height: 220px;
+  overflow: auto;
+  resize: vertical;
+}
+
+.participant-report-scroll .participation-table th,
+.activity-select-scroll .participation-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.activity-select-scroll {
+  height: clamp(640px, calc(100vh - 260px), 820px);
+}
+
+.participation-table th,
+.participation-table td {
+  overflow-wrap: anywhere;
+}
+
+.participation-table th:nth-child(1),
+.participation-table td:nth-child(1) {
+  width: 270px;
+}
+
+.participation-table th:nth-child(2),
+.participation-table td:nth-child(2) {
+  width: 164px;
+}
+
+.participation-table th:nth-child(3),
+.participation-table td:nth-child(3) {
+  width: 100px;
+}
+
+.participation-table th:nth-child(4),
+.participation-table td:nth-child(4) {
+  width: 150px;
+}
+
+.participation-table th:nth-child(8),
+.participation-table td:nth-child(8) {
+  width: 150px;
+}
+
+.participant-selected-row {
+  background: #F8FAFD;
+}
+
+.participant-project-summary {
+  display: grid;
+  gap: 5px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--gold);
+  border-radius: 10px;
+  background: #FBFDFF;
+  margin-bottom: 14px;
+}
+
+.participant-project-summary strong {
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.participant-project-summary span {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.participant-project-summary small {
+  margin: 0;
+}
+
+.participant-form {
+  display: grid;
+  gap: 14px;
+}
+
+.participant-join-check {
+  margin: 0;
+}
+
+.participant-modal-card {
+  width: min(720px, 100%);
+}
+
+.icon-action.delete {
+  background: #FEE2E2;
+  color: #991B1B;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+#participantEvidenceRequired {
+  color: var(--danger);
+}
+
+#participantEvidenceRequired.hidden {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .participation-page .participation-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dashboard-filter-inline {
+    width: 100%;
+  }
+
+  .dashboard-filter-inline label,
+  .dashboard-filter-inline select {
+    width: 100%;
+  }
+
+  .participant-dashboard-cards,
+  .participant-mission-row {
+    grid-template-columns: 1fr;
+  }
+
+  .participation-filterbar {
+    grid-template-columns: 1fr;
+  }
+
+  .participation-table {
+    min-width: 960px;
+  }
+
+  .participant-report-scroll,
+  .activity-select-scroll {
+    height: 460px;
+  }
+
+  .participant-dashboard-wrap {
+    height: 300px;
+  }
+}

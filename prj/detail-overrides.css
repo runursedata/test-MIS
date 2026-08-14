@@ -1,0 +1,498 @@
+/*
+  PRJ Detail Overrides
+  - Override หน้ารายละเอียดโครงการ/participant/KPI ใน modal
+  - ใช้แก้ความหนา ฟอร์มตาราง รายการ output และส่วนแสดงรายละเอียด โดยไม่ไปรื้อ style.css หลัก
+*/
+
+.participant-table,
+.detail-kpi-table,
+.participant-input-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+#detailModal .detail-item div,
+#detailModal .detail-output-list li,
+#detailModal .detail-output-list span,
+#detailModal .participant-table td,
+#detailModal .detail-kpi-table td {
+  font-weight: 400 !important;
+}
+
+#detailModal .detail-item label,
+#detailModal .detail-section h4,
+#detailModal .participant-table th,
+#detailModal .detail-kpi-table th,
+#detailModal .participant-row-total td,
+#detailModal .detail-kpi-group-row td {
+  font-weight: 700 !important;
+}
+
+.participant-table th,
+.participant-table td,
+.detail-kpi-table th,
+.detail-kpi-table td,
+.participant-input-table th,
+.participant-input-table td {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.participant-table th,
+.detail-kpi-table th,
+.participant-input-table th {
+  background: #eef4fb;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.participant-table td:last-child,
+.participant-input-table td:nth-child(3),
+.participant-input-table td:last-child {
+  white-space: nowrap;
+}
+
+.participant-row-total td,
+.participant-input-total td {
+  background: #f8fbff;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.participant-group-cell {
+  background: #fbfdff;
+  color: var(--navy);
+  font-weight: 900;
+  vertical-align: top;
+}
+
+.detail-kpi-table td:first-child {
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.detail-kpi-table td:not(:first-child) {
+  white-space: nowrap;
+}
+
+.detail-kpi-group-row td {
+  background: #f8fbff;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.participant-input-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  background: #fbfdff;
+  padding: 12px;
+}
+
+.participant-input-table label {
+  margin: 0;
+  color: var(--text);
+}
+
+.participant-input-table input {
+  min-width: 120px;
+}
+
+.kpi-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.kpi-unified {
+  gap: 0;
+  padding: 12px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  background: #fbfdff;
+  overflow: hidden;
+}
+
+.kpi-input-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.kpi-input-table th,
+.kpi-input-table td {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: middle;
+  min-width: 0;
+}
+
+.kpi-input-table th:nth-child(1),
+.kpi-input-table td:nth-child(1) {
+  width: 8%;
+}
+
+.kpi-input-table th:nth-child(2),
+.kpi-input-table td:nth-child(2) {
+  width: 27%;
+}
+
+.kpi-input-table th:nth-child(3),
+.kpi-input-table td:nth-child(3) {
+  width: 26%;
+}
+
+.kpi-input-table th:nth-child(4),
+.kpi-input-table td:nth-child(4) {
+  width: 14%;
+}
+
+.kpi-input-table th:nth-child(5),
+.kpi-input-table td:nth-child(5) {
+  width: 25%;
+}
+
+.kpi-input-table input,
+.kpi-input-table select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.kpi-input-table th {
+  background: #eef4fb;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.kpi-input-table td:first-child {
+  width: 64px;
+  text-align: center;
+}
+
+.kpi-input-table td:first-child input {
+  width: 20px;
+  height: 20px;
+  accent-color: #1479f6;
+}
+
+.kpi-input-table label {
+  margin: 0;
+  color: var(--text);
+  font-weight: 900;
+}
+
+.output-kpi-box {
+  margin-top: 0;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-top: 0;
+  background: #fff;
+}
+
+.output-kpi-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 10px 12px;
+  background: #eef4fb;
+  border-bottom: 1px solid var(--border);
+}
+
+.output-kpi-title label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--navy);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.output-kpi-title input {
+  width: 20px;
+  height: 20px;
+  accent-color: #1479f6;
+}
+
+.kpi-output-section {
+  --output-grid-columns: minmax(0, 1.6fr) minmax(0, .78fr) minmax(0, .9fr) minmax(0, .78fr) 84px;
+}
+
+.output-list-head {
+  display: grid;
+  grid-template-columns: var(--output-grid-columns) !important;
+  width: 100%;
+  margin: 0;
+  background: #f8fbff;
+  border-bottom: 1px solid var(--border);
+}
+
+.output-list-head span {
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 8px 12px;
+  border-right: 1px solid var(--border);
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.output-list-head span:last-child {
+  border-right: 0;
+  text-align: center;
+}
+
+.kpi-output-section .output-items {
+  margin: 0;
+  gap: 0;
+}
+
+.kpi-output-section .output-item-row {
+  display: grid;
+  grid-template-columns: var(--output-grid-columns) !important;
+  width: 100%;
+  gap: 0;
+  align-items: stretch;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #fff;
+}
+
+.kpi-output-section .output-item-row + .output-item-row {
+  border-top: 1px solid var(--border);
+}
+
+.kpi-output-section .output-item-row label {
+  box-sizing: border-box;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  margin: 0;
+  padding: 10px 12px;
+  border-right: 1px solid var(--border);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.kpi-output-section .output-item-row input,
+.kpi-output-section .output-item-row select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.kpi-output-section .output-item-row label span {
+  display: none;
+}
+
+.kpi-output-section .output-remove-btn {
+  align-self: center;
+  justify-self: center;
+  width: 54px;
+  min-width: 0;
+  height: 36px;
+  margin: 10px auto;
+}
+
+.kpi-output-section .output-item-row > .output-remove-btn {
+  box-sizing: border-box;
+}
+
+.output-add-row {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 12px;
+  border-top: 1px solid var(--border);
+  background: #fff;
+}
+
+@media (max-width: 700px) {
+  .participant-input-table {
+    min-width: 680px;
+  }
+
+  .kpi-input-table {
+    min-width: 760px;
+  }
+
+  .output-kpi-title {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .kpi-output-section .output-item-row {
+    grid-template-columns: 1fr;
+  }
+
+  .output-list-head {
+    display: none;
+  }
+
+  .kpi-output-section .output-item-row label {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .kpi-output-section .output-item-row label span {
+    display: block;
+  }
+
+  .output-add-row {
+    justify-content: stretch;
+  }
+
+  .output-add-row .btn {
+    width: 100%;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    overflow: visible !important;
+  }
+
+  body > *:not(#detailModal) {
+    display: none !important;
+  }
+
+  #detailModal,
+  #detailModal .modal-card {
+    position: static !important;
+    inset: auto !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    overflow: visible !important;
+  }
+
+  #detailModal .modal-header {
+    display: block !important;
+    padding: 0 0 8mm !important;
+    border: 0 !important;
+  }
+
+  #detailModal .modal-header h3 {
+    margin: 0 !important;
+    color: #000 !important;
+    font-size: 18pt !important;
+  }
+
+  #detailModal .modal-body {
+    display: block !important;
+    width: 100% !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  #detailModal .detail-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin: 0 0 7mm !important;
+  }
+
+  #detailModal .detail-section h4 {
+    margin: 0 0 3mm !important;
+    color: #000 !important;
+    font-size: 13pt !important;
+  }
+
+  #detailModal .detail-grid {
+    display: grid !important;
+    grid-template-columns: 38mm 1fr !important;
+    gap: 2mm 5mm !important;
+    padding: 4mm !important;
+    border: 1px solid #ddd !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+  }
+
+  #detailModal .detail-item {
+    display: contents !important;
+  }
+
+  #detailModal .detail-item label,
+  #detailModal .detail-item div {
+    color: #000 !important;
+    font-size: 10pt !important;
+    line-height: 1.45 !important;
+    word-break: break-word !important;
+  }
+
+  #detailModal .detail-item label {
+    font-weight: 700 !important;
+  }
+
+  #detailModal .detail-item div {
+    font-weight: 400 !important;
+  }
+
+  #detailModal .detail-item.full {
+    display: block !important;
+    grid-column: 1 / -1 !important;
+  }
+
+  #detailModal .detail-item.full label,
+  #detailModal .detail-item.full div {
+    display: block !important;
+  }
+
+  #detailModal .participant-table th,
+  #detailModal .participant-table td,
+  #detailModal .detail-kpi-table th,
+  #detailModal .detail-kpi-table td {
+    padding: 2.5mm 3mm !important;
+    border: 1px solid #bbb !important;
+    color: #000 !important;
+    font-size: 10pt !important;
+  }
+
+  #detailModal .participant-table th,
+  #detailModal .detail-kpi-table th,
+  #detailModal .participant-row-total td,
+  #detailModal .detail-kpi-group-row td {
+    background: #f2f2f2 !important;
+  }
+
+  #detailModal .participant-table,
+  #detailModal .detail-kpi-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  #detailModal .icon-btn,
+  #detailModal .modal-footer {
+    display: none !important;
+  }
+}

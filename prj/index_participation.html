@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>บันทึกการเข้าร่วมกิจกรรม | RUNS MIS</title>
+  <link rel="stylesheet" href="style.css?v=20260729-participation" />
+  <link rel="stylesheet" href="participation.css?v=20260729-participation" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="logo.png" alt="โลโก้คณะ" class="brand-logo" />
+      <button class="sidebar-close" type="button" onclick="closeMobileSidebar()" aria-label="ปิดเมนู">×</button>
+      <div>
+        <h1>บันทึกเข้าร่วมกิจกรรม</h1>
+        <p>Faculty of Nursing<br />Ramkhamhaeng University</p>
+      </div>
+    </div>
+
+    <nav class="menu" aria-label="เมนูหลัก">
+      <button class="menu-item active" data-page="report" type="button" onclick="navigateToParticipation('report')">
+        <span>📄</span><span class="menu-text">รายงานกิจกรรมที่เข้าร่วม</span>
+      </button>
+      <button class="menu-item" data-page="form" type="button" onclick="navigateToParticipation('form')">
+        <span>📝</span><span class="menu-text">เพิ่มบันทึกกิจกรรมเข้าร่วม</span>
+      </button>
+    </nav>
+
+    <a class="mis-button" href="../index.html">
+      <span>←</span><span class="menu-text">กลับหน้าหลัก MIS</span>
+    </a>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="hamburger" type="button" onclick="toggleSidebar()" aria-label="เปิด/ปิดเมนู">☰</button>
+      <div>
+        <h2 id="pageTitle">รายงานกิจกรรมที่เข้าร่วม</h2>
+        <p id="pageSubtitle">รายการบันทึกเข้าร่วมกิจกรรมของฉัน</p>
+      </div>
+      <div id="userPill" class="user-pill">-</div>
+    </header>
+
+    <section id="page-report" class="page active participation-page">
+      <div class="toolbar participation-toolbar">
+        <div>
+          <h3>รายงานกิจกรรมที่เข้าร่วม</h3>
+          <p>รายการที่เลือกเข้าร่วมแล้ว แก้ไขหลักฐานหรือหมายเหตุได้ภายใน 7 วันหลังบันทึก</p>
+        </div>
+        <button class="btn primary" type="button" onclick="navigateToParticipation('form')">+ เพิ่มบันทึกกิจกรรมเข้าร่วม</button>
+      </div>
+      <div class="table-panel participation-dashboard-panel">
+        <div class="table-header">
+          <div>
+            <h3>Dashboard การเข้าร่วมของฉัน</h3>
+            <p>สรุปตามปีงบประมาณ พันธกิจ และประเภทโครงการ</p>
+          </div>
+          <div class="dashboard-filter-inline">
+            <label>
+              <span>ปีงบประมาณ</span>
+              <select id="dashboardYearFilter"></select>
+            </label>
+            <label>
+              <span>มุมมอง</span>
+              <select id="dashboardTypeFilter">
+                <option value="">ภาพรวม</option>
+                <option value="คณะ">คณะ</option>
+                <option value="มหาวิทยาลัย">มหาวิทยาลัย</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div id="participantDashboardWrap" class="participant-dashboard-wrap">
+          <div class="table-loading-state"><div class="spinner small"></div><p>กำลังดาวน์โหลด</p></div>
+        </div>
+      </div>
+      <div class="table-panel participant-report-panel">
+        <div class="table-header">
+          <h3>กิจกรรมของฉัน</h3>
+          <button class="btn secondary small-btn" type="button" onclick="loadParticipationData()">รีเฟรช</button>
+        </div>
+        <div id="participantReportWrap" class="table-wrap participant-report-scroll">
+          <div class="table-loading-state"><div class="spinner small"></div><p>กำลังดาวน์โหลด</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-form" class="page participation-page">
+      <div class="toolbar list-toolbar participation-filterbar">
+        <div class="search-box">
+          <label for="activitySearch">ค้นหา</label>
+          <input id="activitySearch" type="search" placeholder="ค้นหาชื่อโครงการ / รหัสกิจกรรม" />
+        </div>
+        <div>
+          <label for="activityYearFilter">ปีงบประมาณ</label>
+          <select id="activityYearFilter"><option value="">ทั้งหมด</option></select>
+        </div>
+        <div>
+          <label for="activityTypeFilter">ประเภท</label>
+          <select id="activityTypeFilter"><option value="">ทั้งหมด</option></select>
+        </div>
+        <div>
+          <label for="activityMissionFilter">พันธกิจ</label>
+          <select id="activityMissionFilter"><option value="">ทั้งหมด</option></select>
+        </div>
+        <button class="btn secondary" type="button" onclick="resetParticipationFilters()">ล้างตัวกรอง</button>
+      </div>
+
+      <div class="table-panel activity-select-panel">
+        <div class="table-header">
+          <div>
+            <h3>เพิ่มบันทึกกิจกรรมเข้าร่วม</h3>
+            <p>แนบไฟล์รูป/หลักฐานได้ ขนาดไม่เกิน 2 MB</p>
+          </div>
+        </div>
+        <div id="activityTableWrap" class="table-wrap activity-select-scroll">
+          <div class="table-loading-state"><div class="spinner small"></div><p>กำลังดาวน์โหลด</p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      © 2026 Faculty of Nursing, Ramkhamhaeng University | Developed by Lect. Siyathorn Ponjaroenpaisarn
+    </footer>
+  </main>
+
+  <div id="participantModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="participantModalTitle">
+    <div class="modal-card participant-modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 id="participantModalTitle">บันทึกการเข้าร่วม</h3>
+          <p id="participantModalSubtitle">แนบหลักฐานและหมายเหตุ</p>
+        </div>
+        <button class="icon-btn" type="button" onclick="closeParticipantModal()" aria-label="ปิด">×</button>
+      </div>
+      <form id="participantForm" class="modal-body participant-form">
+        <input type="hidden" id="participantActivityId" />
+        <div id="participantProjectSummary" class="participant-project-summary"></div>
+        <label class="inline-check participant-join-check">
+          <input id="participantJoined" type="checkbox" checked />
+          เลือกเข้าร่วม
+        </label>
+        <div class="field">
+          <label for="participantEvidence">แนบไฟล์รูป/หลักฐานเข้าร่วม</label>
+          <input id="participantEvidence" type="file" accept="image/*,.pdf" />
+          <small id="participantEvidenceHelp">รองรับรูปภาพหรือ PDF ขนาดไม่เกิน 2 MB</small>
+        </div>
+        <div class="field">
+          <label for="participantRemark">หมายเหตุ</label>
+          <textarea id="participantRemark" rows="4"></textarea>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button class="btn secondary" type="button" onclick="closeParticipantModal()">ยกเลิก</button>
+        <button class="btn primary" type="button" onclick="submitParticipantRecord()">บันทึกข้อมูล</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="detailModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 id="detailTitle">รายละเอียดโครงการ</h3>
+          <p id="detailSubtitle">Read-only</p>
+        </div>
+        <button class="icon-btn" type="button" onclick="closeDetailModal()" aria-label="ปิด">×</button>
+      </div>
+      <div id="detailBody" class="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn secondary" type="button" onclick="closeDetailModal()">ปิด</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="loadingOverlay" class="loading-overlay hidden">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <p id="loadingText">กำลังดาวน์โหลด</p>
+    </div>
+  </div>
+  <div id="toastContainer" class="toast-container"></div>
+  <div class="mobile-backdrop" onclick="closeMobileSidebar()"></div>
+
+  <script src="config.js?v=20260810-prj-clean"></script>
+  <script src="participation.js?v=20260729-participation"></script>
+</body>
+</html>

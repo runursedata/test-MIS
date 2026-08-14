@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>บันทึกโครงการคณะ | Faculty of Nursing, Ramkhamhaeng University</title>
+  <link rel="stylesheet" href="style.css?v=20260809-thai-date-supabase-prj" />
+  <link rel="stylesheet" href="detail-overrides.css?v=20260706-output-grid-lines" />
+</head>
+<body>
+  <div id="loadingOverlay" class="loading-overlay hidden" aria-live="polite">
+    <div class="loader-card">
+      <div class="spinner"></div>
+      <p id="loadingText">กำลังดาวน์โหลด</p>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+  <div id="mobileBackdrop" class="mobile-backdrop" onclick="closeMobileSidebar()"></div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="brand">
+      <img src="logo.png" alt="โลโก้คณะ" class="brand-logo" />
+      <button class="sidebar-close" type="button" onclick="closeMobileSidebar()" aria-label="ปิดเมนู">×</button>
+      <div>
+        <h1>บันทึกโครงการคณะ</h1>
+        <p>คณะพยาบาลศาสตร์</p>
+        <p>มหาวิทยาลัยรามคำแหง</p>
+      </div>
+    </div>
+
+    <nav class="menu" aria-label="เมนูหลัก">
+      <button class="menu-item active" data-page="dashboard" type="button" onclick="navigateTo('dashboard')">
+        <span>📊</span><span class="menu-text">Dashboard</span>
+      </button>
+      <button class="menu-item" data-page="projects" type="button" onclick="navigateTo('projects')">
+        <span>📋</span><span class="menu-text">รายการโครงการคณะ</span>
+      </button>
+      <button class="menu-item" data-page="deleted" type="button" onclick="navigateTo('deleted')">
+        <span>🗑</span><span class="menu-text">รายการที่ลบแล้ว</span>
+      </button>
+      <button class="menu-item" data-page="form" data-create-project type="button" onclick="navigateTo('form')">
+        <span>📝</span><span class="menu-text">บันทึกโครงการคณะ</span>
+      </button>
+    </nav>
+
+    <a class="mis-button" href="../index.html">
+      <span>←</span><span class="menu-text">กลับหน้าหลัก MIS</span>
+    </a>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="hamburger" type="button" onclick="toggleSidebar()" aria-label="เปิด/ปิดเมนู">☰</button>
+      <div>
+        <h2 id="pageTitle">Dashboard</h2>
+        <p id="pageSubtitle">ภาพรวมการติดตามโครงการ</p>
+      </div>
+      <div class="user-pill" id="userPill">USERS</div>
+    </header>
+
+    <section id="page-dashboard" class="page active">
+      <div id="dashboardCards" class="cards-grid loading-area">
+        <div class="inline-loading dashboard-inline-loading">
+          <div class="spinner small"></div>
+          <p>กำลังดาวน์โหลด</p>
+        </div>
+      </div>
+
+      <div id="dashboardCharts" class="dashboard-charts loading-area">
+        <div class="inline-loading">
+          <div class="spinner small"></div>
+          <p>กำลังดาวน์โหลด</p>
+        </div>
+      </div>
+
+    </section>
+
+    <section id="page-projects" class="page">
+      <div class="toolbar list-toolbar">
+        <div class="search-box">
+          <label for="searchInput">ค้นหา</label>
+          <input id="searchInput" type="search" placeholder="ค้นหาชื่อโครงการ / กิจกรรม / ผู้รับผิดชอบ 1" />
+        </div>
+        <div>
+          <label for="filterYear">ปีงบประมาณ</label>
+          <select id="filterYear"><option value="">ทั้งหมด</option></select>
+        </div>
+        <div>
+          <label for="filterQuarter">ไตรมาส</label>
+          <select id="filterQuarter"><option value="">ทั้งหมด</option></select>
+        </div>
+        <div>
+          <label for="filterStatus">สถานะ</label>
+          <select id="filterStatus"><option value="">ทั้งหมด</option></select>
+        </div>
+        <button class="btn secondary" type="button" onclick="resetProjectFilters()">ล้างตัวกรอง</button>
+      </div>
+
+      <div class="table-panel my-projects-panel">
+        <div class="table-header">
+          <h3>รายการโครงการของฉัน</h3>
+          <button class="btn primary" type="button" data-create-project onclick="openCreateForm()">+ เพิ่มบันทึกโครงการคณะ</button>
+        </div>
+        <div id="myProjectTableWrap" class="table-wrap">
+          <div class="table-loading-state">
+            <div class="spinner small"></div>
+            <p>กำลังดาวน์โหลด</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-panel faculty-projects-panel">
+        <div class="table-header">
+          <h3>โครงการคณะ</h3>
+          <button id="facultyProjectsToggleBtn" class="btn secondary small-btn panel-collapse-toggle" type="button" onclick="toggleFacultyProjectsPanel()" aria-expanded="false" aria-controls="projectTableWrap">
+            เปิดโครงการทั้งหมด
+          </button>
+        </div>
+        <div id="projectTableWrap" class="table-wrap">
+          <div class="table-loading-state">
+            <div class="spinner small"></div>
+            <p>กำลังดาวน์โหลด</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-deleted" class="page">
+      <div class="table-panel">
+        <div class="table-header">
+          <h3>รายการที่ลบแล้ว</h3>
+          <p>USERS เรียกคืนรายการตัวเองได้, STAFF เรียกคืนได้, ADMIN เรียกคืนและลบถาวรได้</p>
+        </div>
+        <div id="deletedProjectTableWrap" class="table-wrap">
+          <div class="table-loading-state">
+            <div class="spinner small"></div>
+            <p>กำลังดาวน์โหลด</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="page-form" class="page">
+      <form id="projectForm" class="form-shell" autocomplete="off">
+        <input type="hidden" id="ACTIVITY_ID" />
+        <input type="hidden" id="PROJECT_ID" />
+        <input type="hidden" id="PROJECT_LEVEL" />
+        <div class="form-header">
+          <div>
+            <h3 id="formTitle">บันทึกโครงการคณะ</h3>
+            
+          </div>
+          <div class="form-actions-top">
+            <button class="btn secondary" type="button" onclick="resetFormState()">ล้างฟอร์ม</button>
+            <button class="btn primary" type="submit">บันทึกข้อมูล</button>
+          </div>
+        </div>
+
+        <section class="form-section">
+          <h4>1. ข้อมูลโครงการ</h4>
+          <div class="form-grid two">
+            <div class="field">
+              <label for="existingProjectSelect">เลือกจากโครงการที่มีอยู่</label>
+              <select id="existingProjectSelect">
+                <option value="">สร้างโครงการใหม่ / กรอกเอง</option>
+              </select>
+              <small>เลือกโครงการเดิมเพื่อเพิ่มกิจกรรมย่อย หรือพิมพ์ชื่อใหม่ด้านล่าง</small>
+            </div>
+            <div class="field">
+              <label for="PROJECT_NAME">ชื่อโครงการ *</label>
+              <input id="PROJECT_NAME" required placeholder="กรอกชื่อโครงการ หรือเลือกจากรายการด้านบน" />
+            </div>
+            <div class="field">
+              <label for="ACTIVITY_NAME">ชื่อกิจกรรม *</label>
+              <input id="ACTIVITY_NAME" required />
+              <label class="inline-check">
+                <input id="NO_SUB_ACTIVITY" type="checkbox" />
+                ไม่มีกิจกรรมย่อย
+              </label>
+              <small>ถ้าเลือกตัวเลือกนี้ ระบบจะใช้ชื่อโครงการเป็นชื่อกิจกรรมและล็อกไม่ให้แก้ไข</small>
+            </div>
+          </div>
+          <div class="field">
+            <label for="PROJECT_DESCRIPTION">รายละเอียดโครงการ</label>
+            <textarea id="PROJECT_DESCRIPTION" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label for="DOCUMENT_URL">ลิงก์เอกสารโครงการ</label>
+            <p class="project-link-warning">ต้องตั้งค่าแชร์ไฟล์ให้ “ทุกคนที่มีลิงก์ดูได้” หรือ “เฉพาะบัญชี @rumail.ru.ac.th ดูได้” ก่อนบันทึก ระบบตรวจได้เฉพาะลิงก์สาธารณะเท่านั้น</p>
+            <input id="DOCUMENT_URL" type="url" placeholder="https://..." />
+            <div class="project-link-check-row">
+              <button type="button" class="btn secondary small-btn" id="projectCheckDocumentLinkBtn">ตรวจลิงก์</button>
+              <span id="projectDocumentLinkCheckResult"></span>
+            </div>
+            <p class="project-current-document" id="projectCurrentDocumentLink">ยังไม่มีลิงก์ไฟล์แนบ</p>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h4>2. แผนงาน ยุทธศาสตร์ และช่วงเวลา</h4>
+          <div class="form-grid two">
+            <div class="field">
+              <label for="FISCAL_YEAR">ปีงบประมาณ *</label>
+              <input id="FISCAL_YEAR" type="number" required readonly placeholder="ระบบคำนวณอัตโนมัติ" />
+              <small>ระบบคำนวณปีงบประมาณอัตโนมัติจากวันที่เริ่มดำเนินการ เพื่อประมวลผลงบประมาณ</small>
+            </div>
+            <div class="field">
+              <label>ไตรมาส *</label>
+              <div class="quarter-checks calculated-quarter-checks" role="group" aria-label="ไตรมาสที่ระบบคำนวณจากวันที่">
+                <label><input id="Q1" type="checkbox" disabled /> ไตรมาสที่ 1</label>
+                <label><input id="Q2" type="checkbox" disabled /> ไตรมาสที่ 2</label>
+                <label><input id="Q3" type="checkbox" disabled /> ไตรมาสที่ 3</label>
+                <label><input id="Q4" type="checkbox" disabled /> ไตรมาสที่ 4</label>
+              </div>
+              <small>กรุณาลงวันที่เพื่อขึ้นไตรมาสอัตโนมัติ ระบบคำนวณจากวันที่เริ่มดำเนินการและวันที่สิ้นสุดดำเนินการเท่านั้น</small>
+            </div>
+            <div class="field">
+              <label for="START_DATE">วันที่เริ่มดำเนินการ *</label>
+              <div class="thai-date-control" data-thai-date-control>
+                <input id="START_DATE" type="text" required inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input />
+                <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+              </div>
+              <small>กรุณาลงวันที่เพื่อขึ้นไตรมาสอัตโนมัติ</small>
+            </div>
+            <div class="field">
+              <label for="END_DATE">วันที่สิ้นสุดดำเนินการ *</label>
+              <div class="thai-date-control" data-thai-date-control>
+                <input id="END_DATE" type="text" required inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input />
+                <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+              </div>
+              <small>วันที่สิ้นสุดต้องไม่น้อยกว่าวันที่เริ่มดำเนินการ</small>
+            </div>
+            <div class="field">
+              <label for="PLAN_TYPE">แผนงาน *</label>
+              <select id="PLAN_TYPE" required><option value="">กำลังดาวน์โหลด</option></select>
+            </div>
+            <div class="field">
+              <label>พันธกิจ *</label>
+              <div class="mission-checks" role="group" aria-label="เลือกพันธกิจ">
+                <label><input id="MISSION_ADMIN" type="checkbox" value="การบริหาร" /> การบริหาร</label>
+                <label><input id="MISSION_TEACHING" type="checkbox" value="การเรียนการสอน" /> การเรียนการสอน</label>
+                <label><input id="MISSION_RESEARCH" type="checkbox" value="การวิจัย" /> การวิจัย</label>
+                <label><input id="MISSION_ACADEMIC_SERVICE" type="checkbox" value="การบริการวิชาการ" /> การบริการวิชาการ</label>
+                <label><input id="MISSION_ART_CULTURE" type="checkbox" value="การทำนุบำรุงศิลปะและวัฒนธรรม" /> การทำนุบำรุงศิลปะและวัฒนธรรม</label>
+              </div>
+            </div>
+            <div class="field strategy-stack-field">
+              <label for="STRATEGY_ID">ยุทธศาสตร์ *</label>
+              <select id="STRATEGY_ID" required><option value="">กำลังดาวน์โหลด</option></select>
+            </div>
+            <div class="field strategy-stack-field">
+              <label for="OBJECTIVE_ID">เป้าประสงค์ *</label>
+              <select id="OBJECTIVE_ID" required disabled><option value="">เลือกยุทธศาสตร์ก่อน</option></select>
+            </div>
+            <div class="field strategy-stack-field">
+              <label for="STRATEGY_PLAN_ID">กลยุทธ์ *</label>
+              <select id="STRATEGY_PLAN_ID" required disabled><option value="">เลือกวัตถุประสงค์ก่อน</option></select>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section budget-section">
+          <h4>3. งบประมาณและประเภทการเงิน</h4>
+          <div class="form-grid four">
+            <div class="field span-two">
+              <label for="PROJECT_FINANCE_TYPE">ประเภทการเงินของโครงการ *</label>
+              <select id="PROJECT_FINANCE_TYPE" required>
+                <option value="ใช้งบภายในตามแผนฯ">ใช้งบภายในตามแผนฯ</option>
+                <option value="ได้รับสนับสนุน/ให้เปล่า">ได้รับสนับสนุน/ให้เปล่า</option>
+                <option value="หารายได้">หารายได้</option>
+                <option value="ไม่มีรายการเงิน">ไม่มีรายการเงิน</option>
+              </select>
+              <small>ระบุลักษณะทางการเงินของโครงการ เพื่อใช้แยกรายงานงบประมาณ</small>
+            </div>
+            <div class="field span-two">
+              <label for="HAS_PROJECT_EXPENSE">มีค่าใช้จ่ายหรือไม่ *</label>
+              <select id="HAS_PROJECT_EXPENSE" required>
+                <option value="true">มีค่าใช้จ่าย</option>
+                <option value="false">ไม่มีค่าใช้จ่าย</option>
+              </select>
+              <small>ถ้าไม่มีค่าใช้จ่าย ระบบจะปิดช่องงบประมาณและบันทึกเป็น 0</small>
+            </div>
+            <div class="field">
+              <label for="PLAN_BUDGET">งบประมาณตามแผน</label>
+              <input id="PLAN_BUDGET" type="number" min="0" step="0.01" value="0" />
+            </div>
+            <div class="field">
+              <label for="ACTUAL_BUDGET">งบประมาณใช้จริง</label>
+              <input id="ACTUAL_BUDGET" type="number" min="0" step="0.01" value="0" />
+            </div>
+            <div class="field readonly">
+              <label for="REMAIN_BUDGET">งบประมาณคงเหลือ</label>
+              <input id="REMAIN_BUDGET" readonly />
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section kpi-section">
+          <h4>4) เลือกตัวชี้วัดของโครงการ ค่าเป้าหมาย และผลการดำเนินงาน</h4>
+          <div class="kpi-grid kpi-unified">
+            <div class="kpi-table-wrap">
+              <table class="kpi-input-table">
+                <thead>
+                  <tr>
+                    <th>ใช้</th>
+                    <th>ตัวชี้วัด</th>
+                    <th>ค่าเป้าหมาย</th>
+                    <th>หน่วย</th>
+                    <th>ผลจริง</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="checkbox" id="USE_PARTICIPANT_KPI" aria-label="ใช้ตัวชี้วัดผู้เข้าร่วมโครงการ" /></td>
+                    <td><label for="USE_PARTICIPANT_KPI">ผู้เข้าร่วมโครงการ (Participant)</label></td>
+                    <td><input id="PARTICIPANT_TARGET" type="number" min="0" step="0.01" placeholder="เช่น 80" disabled /></td>
+                    <td><select id="PARTICIPANT_UNIT" disabled><option value="ร้อยละ">ร้อยละ</option><option value="คน">คน</option><option value="จำนวน">จำนวน</option><option value="ครั้ง">ครั้ง</option><option value="คะแนน">คะแนน</option><option value="ผลงาน">ผลงาน</option></select></td>
+                    <td><input id="PARTICIPANT_RESULT" type="number" min="0" step="0.01" disabled /></td>
+                  </tr>
+                  <tr>
+                    <td><input type="checkbox" id="USE_SATISFACTION_KPI" aria-label="ใช้ตัวชี้วัดความพึงพอใจ" /></td>
+                    <td><label for="USE_SATISFACTION_KPI">ความพึงพอใจ (Satisfaction)</label></td>
+                    <td><input id="SATISFACTION_TARGET" type="number" min="0" step="0.01" placeholder="เช่น 4.25" disabled /></td>
+                    <td><select id="SATISFACTION_UNIT" disabled><option value="คะแนน">คะแนน</option><option value="ร้อยละ">ร้อยละ</option><option value="จำนวน">จำนวน</option><option value="ครั้ง">ครั้ง</option><option value="คน">คน</option><option value="ผลงาน">ผลงาน</option></select></td>
+                    <td><input id="SATISFACTION_RESULT" type="number" min="0" step="0.01" disabled /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+              <div class="output-kpi-box kpi-output-section">
+                <div class="output-kpi-title">
+                  <label><input type="checkbox" id="USE_OUTPUT_KPI" /> ตัวชี้วัดอื่น / ผลงาน / ผลผลิต (Output)</label>
+                </div>
+              <div class="form-grid three compact legacy-output-fields">
+                <div class="field"><label for="OUTPUT_DETAIL">ประเภทผลงาน/ผลผลิต</label><input id="OUTPUT_DETAIL" type="text" placeholder="เช่น นวัตกรรม, งานวิจัย" disabled /></div>
+                <div class="field"><label for="OUTPUT_TARGET">ค่าเป้าหมาย</label><input id="OUTPUT_TARGET" type="number" min="0" step="0.01" placeholder="เช่น 1" disabled /></div>
+                <div class="field"><label for="OUTPUT_UNIT">หน่วย</label><input id="OUTPUT_UNIT" type="text" placeholder="พิมพ์หน่วย เช่น ผลงาน, เรื่อง, เล่ม" disabled /></div>
+                <div class="field"><label for="OUTPUT_RESULT">ผลจริง</label><input id="OUTPUT_RESULT" type="number" min="0" step="0.01" disabled /></div>
+              </div>
+              <div class="output-list-head output-list-columns">
+                <span>รายการ/รายละเอียด</span>
+                <span>ค่าเป้าหมาย</span>
+                <span>หน่วย</span>
+                <span>ผลจริง</span>
+                <span>จัดการ</span>
+              </div>
+              <div id="outputItems" class="output-items"></div>
+              <div class="output-add-row">
+                <button class="btn secondary small-btn" type="button" id="addOutputItemBtn" onclick="addOutputItem()" disabled>+ เพิ่มตัวชี้วัด</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="form-section participant-section">
+          <h4>5. จำนวนผู้เข้าร่วมแยกกลุ่ม</h4>
+          <div class="participant-input-table-wrap">
+            <table class="participant-input-table">
+              <thead>
+                <tr>
+                  <th>กลุ่ม</th>
+                  <th>ประเภทผู้เข้าร่วม</th>
+                  <th>จำนวน</th>
+                  <th>หน่วย</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2" class="participant-group-cell">บุคลากร</td>
+                  <td><label for="TEACHER_COUNT">อาจารย์</label></td>
+                  <td><input id="TEACHER_COUNT" type="number" min="0" value="0" /></td>
+                  <td>คน</td>
+                </tr>
+                <tr>
+                  <td><label for="SUPPORT_STAFF_COUNT">บุคลากรสายสนับสนุน</label></td>
+                  <td><input id="SUPPORT_STAFF_COUNT" type="number" min="0" value="0" /></td>
+                  <td>คน</td>
+                </tr>
+                <tr>
+                  <td rowspan="5" class="participant-group-cell">นักศึกษา</td>
+                  <td><label for="STUDENT_YEAR1_COUNT">นักศึกษาชั้นปีที่ 1</label></td>
+                  <td><input id="STUDENT_YEAR1_COUNT" type="number" min="0" value="0" /></td>
+                  <td>คน</td>
+                </tr>
+                <tr>
+                  <td><label for="STUDENT_YEAR2_COUNT">นักศึกษาชั้นปีที่ 2</label></td>
+                  <td><input id="STUDENT_YEAR2_COUNT" type="number" min="0" value="0" /></td>
+                  <td>คน</td>
+                </tr>
+                <tr>
+                  <td><label for="STUDENT_YEAR3_COUNT">นักศึกษาชั้นปีที่ 3</label></td>
+                  <td><input id="STUDENT_YEAR3_COUNT" type="number" min="0" value="0" /></td>
+                  <td>คน</td>
+                </tr>
+                <tr>
+                  <td><label for="STUDENT_YEAR4_COUNT">นักศึกษาชั้นปีที่ 4</label></td>
+                  <td><input id="STUDENT_YEAR4_COUNT" type="number" min="0" value="0" /></td>
+                  <td>คน</td>
+                </tr>
+                <tr class="participant-input-total">
+                  <td><label for="TOTAL_STUDENT_COUNT">รวมนักศึกษา</label></td>
+                  <td><input id="TOTAL_STUDENT_COUNT" readonly /></td>
+                  <td>คน</td>
+                </tr>
+                <tr class="external-participant-row">
+                  <td class="participant-group-cell">บุคคลภายนอก</td>
+                  <td>
+                    <label class="inline-check"><input id="HAS_EXTERNAL_PARTICIPANT" type="checkbox" /> มีบุคคลภายนอกเข้าร่วม</label>
+                    <input id="EXTERNAL_PARTICIPANT_DETAIL" type="text" placeholder="ระบุรายละเอียด เช่น พยาบาลวิชาชีพจากโรงพยาบาล..., ศิษย์เก่า, ประชาชนจากชุมชน..." />
+                  </td>
+                  <td><input id="EXTERNAL_PARTICIPANT_COUNT" type="number" min="0" value="0" placeholder="จำนวนคน" /></td>
+                  <td>คน</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="form-section owner-section">
+          <h4>6. ผู้รับผิดชอบและสถานะ</h4>
+          <div class="form-grid two">
+            <div class="field">
+              <label for="RESPONSIBLE_PERSON_ID">ผู้รับผิดชอบ 1</label>
+              <select id="RESPONSIBLE_PERSON_ID"><option value="">กำลังดาวน์โหลด</option></select>
+            </div>
+            <div class="field readonly">
+              <label for="RESPONSIBLE_FULL_NAME">ชื่อ–นามสกุลผู้รับผิดชอบ 1</label>
+              <input id="RESPONSIBLE_FULL_NAME" readonly />
+            </div>
+            <div class="field readonly">
+              <label for="RESPONSIBLE_EMAIL">อีเมลผู้รับผิดชอบ 1</label>
+              <input id="RESPONSIBLE_EMAIL" readonly />
+            </div>
+            <div class="field">
+              <label for="CO_OWNER_PERSON_ID">ผู้รับผิดชอบ 2</label>
+              <select id="CO_OWNER_PERSON_ID"><option value="">เลือกผู้รับผิดชอบ 2 (ถ้ามี)</option></select>
+            </div>
+            <div class="field readonly">
+              <label for="CO_OWNER_FULL_NAME">ชื่อ–นามสกุลผู้รับผิดชอบ 2</label>
+              <input id="CO_OWNER_FULL_NAME" readonly />
+            </div>
+            <div class="field readonly">
+              <label for="CO_OWNER_EMAIL">อีเมลผู้รับผิดชอบ 2</label>
+              <input id="CO_OWNER_EMAIL" readonly />
+            </div>
+          </div>
+          <div class="field">
+            <label for="REMARK">หมายเหตุ</label>
+            <textarea id="REMARK" rows="3"></textarea>
+          </div>
+          <div class="field status-required-card">
+            <label for="STATUS">สถานะโครงการ *</label>
+            <select id="STATUS" required>
+              <option value="วางแผน">วางแผน</option>
+              <option value="กำลังดำเนินการ">กำลังดำเนินการ</option>
+              <option value="รอสรุปโครงการ">รอสรุปโครงการ</option>
+              <option value="เสร็จสิ้น">เสร็จสิ้น</option>
+              <option value="ยกเลิก">ยกเลิก</option>
+            </select>
+            <small>ต้องระบุสถานะทุกครั้งก่อนบันทึก</small>
+          </div>
+        </section>
+
+        <div class="form-footer-actions">
+          <button class="btn secondary" type="button" onclick="navigateTo('projects')">ยกเลิก</button>
+          <button class="btn primary" type="submit">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </section>
+
+    <footer class="footer">
+      © 2026 Faculty of Nursing, Ramkhamhaeng University | Developed by Lect. Siyathorn Ponjaroenpaisarn
+    </footer>
+  </main>
+
+  <div id="detailModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3 id="detailTitle">รายละเอียดโครงการ</h3>
+          <p id="detailSubtitle">Read-only</p>
+        </div>
+        <button class="icon-btn" type="button" onclick="closeDetailModal()" aria-label="ปิด">×</button>
+      </div>
+      <div id="detailBody" class="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn primary" type="button" onclick="printProjectDetail()">พิมพ์รายละเอียดโครงการ</button>
+        <button class="btn secondary" type="button" onclick="closeDetailModal()">ปิด</button>
+      </div>
+    </div>
+  </div>
+
+  <script>window.PROJECT_APP_CONTEXT = { projectLevel: "คณะ", projectTitle: "บันทึกโครงการคณะ" };</script>
+  <script src="config.js?v=20260810-prj-clean"></script>
+  <script src="script.js?v=20260809-thai-date-supabase-prj"></script>
+</body>
+</html>
