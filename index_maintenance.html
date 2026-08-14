@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ระบบกำลังปรับปรุง | RUNS MIS</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Sarabun", "Noto Sans Thai", Arial, sans-serif;
+      color: #062347;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.94)),
+        url("assets/bg.png") center/cover no-repeat,
+        #f4f7fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .maintenance {
+      width: min(680px, 100%);
+      padding: 42px 36px;
+      border: 1px solid #d8e2ef;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 24px 80px rgba(6, 35, 71, 0.14);
+      text-align: center;
+    }
+
+    .logo {
+      width: 92px;
+      height: 92px;
+      margin: 0 auto 18px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 22px rgba(6, 35, 71, 0.16));
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.25;
+      font-weight: 800;
+      color: #08264d;
+    }
+
+    .system {
+      margin: 0 0 28px;
+      font-size: 18px;
+      color: #5d718c;
+      font-weight: 600;
+    }
+
+    .notice {
+      margin: 0 auto 22px;
+      padding: 18px 20px;
+      border-radius: 14px;
+      background: #fff4cf;
+      border: 1px solid #e4bf38;
+      color: #6b4700;
+      font-size: 22px;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .date {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: #0b2a52;
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .footer {
+      margin: 28px 0 0;
+      color: #6c7e95;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding: 16px;
+      }
+
+      .maintenance {
+        padding: 32px 20px;
+      }
+
+      .notice {
+        font-size: 19px;
+      }
+
+      .date {
+        width: 100%;
+        border-radius: 14px;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="maintenance" aria-labelledby="maintenance-title">
+    <img class="logo" src="assets/Logo.png" alt="RUNS MIS" />
+    <h1 id="maintenance-title">ระบบกำลังปรับปรุง</h1>
+    <p class="system">RUNS MIS คณะพยาบาลศาสตร์ มหาวิทยาลัยรามคำแหง</p>
+    <p class="notice">ขออภัยในความไม่สะดวก ขณะนี้ระบบอยู่ระหว่างการปรับปรุงเพื่อให้บริการได้ดียิ่งขึ้น</p>
+    <div class="date">เปิดใช้งานอีกครั้ง 31 กรกฎาคม 2569</div>
+    <p class="footer">Faculty of Nursing, Ramkhamhaeng University</p>
+  </main>
+</body>
+</html>

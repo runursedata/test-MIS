@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MIS | หน้าหลัก</title>
+  <link rel="icon" href="assets/favicon.ico" />
+  <link rel="shortcut icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="styles.css?v=20260809-thai-date-control-unified" />
+</head>
+<body class="app-page">
+  <header class="app-topbar">
+    <div class="app-topbar-left">
+      <button id="sidebar-toggle" class="topbar-menu-btn" type="button" aria-label="เปิด/ปิดเมนู">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      </button>
+      <img class="app-topbar-logo" src="assets/Logo.png" alt="โลโก้คณะพยาบาลศาสตร์" />
+      <div class="app-topbar-title">
+        <span>RUNS MIS</span>
+        <strong>ระบบสารสนเทศ เพื่อการตัดสินใจ</strong>
+        <small>คณะพยาบาลศาสตร์ มหาวิทยาลัยรามคำแหง</small>
+      </div>
+    </div>
+    <div class="app-topbar-actions">
+      <div id="session-countdown" class="session-countdown" aria-live="polite" title="เวลาคงเหลือของ session">
+        <span>หมดเวลาใน</span>
+        <strong id="session-countdown-value">--:--:--</strong>
+      </div>
+      <button id="logout-btn" class="topbar-logout-btn" type="button" aria-label="ออกจากระบบ" title="ออกจากระบบ">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+          <path d="M10 17l5-5-5-5" />
+          <path d="M15 12H3" />
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+  <div id="app-shell" class="app-shell">
+    <aside id="app-sidebar" class="app-sidebar" aria-label="เมนูหลัก">
+      <button id="sidebar-user-card" class="sidebar-user-card" type="button" aria-label="เปลี่ยนรหัสผ่าน" title="เปลี่ยนรหัสผ่าน">
+        <div id="sidebar-user-initial" class="sidebar-avatar">-</div>
+        <div class="sidebar-user-meta">
+          <strong id="sidebar-user-name">-</strong>
+          <span id="sidebar-user-role">-</span>
+          <small id="sidebar-user-email">-</small>
+        </div>
+      </button>
+
+      <nav class="sidebar-nav">
+        <a class="sidebar-link active" href="#home" data-view-link="home" aria-current="page">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 11l9-8 9 8" />
+            <path d="M5 10v10h14V10" />
+            <path d="M9 20v-6h6v6" />
+          </svg>
+          <span>หน้าหลัก</span>
+        </a>
+
+        <div class="sidebar-dashboard-menu" data-mis-admin-only>
+          <button class="sidebar-dashboard-title expanded" type="button" aria-expanded="true">
+            <span>แดชบอร์ดผู้บริหาร</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+          </button>
+
+          <div class="sidebar-dashboard-content show">
+            <button class="sidebar-subsection-toggle expanded" type="button" aria-expanded="true">
+              <span>ด้านการบริหาร</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            </button>
+            <div class="sidebar-subsection-links show">
+              <a href="#executive-budget" data-view-link="executive-budget"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V5h14v14H5z" /><path d="M9 16V9" /><path d="M12 16v-4" /><path d="M15 16v-7" /></svg><span>แผนงบประมาณประจำปี</span></a>
+              <a href="#executive-personnel-stats" data-view-link="executive-personnel-stats"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" /><path d="M10 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" /><path d="M21 20v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>สถิติบุคลากร</span></a>
+              <a href="#executive-teacher-ratio" data-view-link="executive-teacher-ratio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" /><path d="M10 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" /><path d="M21 20v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg><span>สัดส่วนอาจารย์</span></a>
+              <a href="#executive-ftes" data-view-link="executive-ftes"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19V5h14v14H5z" /><path d="M9 16V9" /><path d="M12 16v-4" /><path d="M15 16v-7" /></svg><span>FTES</span></a>
+              <a href="#executive-lab-assets" data-view-link="executive-lab-assets"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4-8 4-8-4 8-4z" /><path d="M4 12l8 4 8-4" /><path d="M4 17l8 4 8-4" /></svg><span>รายงานครุภัณฑ์ห้องฝึกปฏิบัติการพยาบาล</span></a>
+              <a href="#executive-library-books" data-view-link="executive-library-books"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z" /></svg><span>รายงานหนังสือห้องสมุด</span></a>
+            </div>
+
+            <button class="sidebar-subsection-toggle expanded" type="button" aria-expanded="true"><span>ด้านการเรียนการสอน</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+            <div class="sidebar-subsection-links show">
+              <a href="#executive-schedule" data-view-link="executive-schedule"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v4" /><path d="M16 3v4" /><path d="M4 11h16" /><path d="M5 5h14v16H5z" /></svg><span>ตารางเรียน</span></a>
+              <a href="#executive-course-count" data-view-link="executive-course-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3v4" /><path d="M16 3v4" /><path d="M4 11h16" /><path d="M5 5h14v16H5z" /></svg><span>จำนวนรายวิชาที่เปิดการเรียนการสอน และรายวิชาที่ดำเนินการสอนแล้วเสร็จ</span></a>
+              <a href="#executive-student-count" data-view-link="executive-student-count"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5 9-5z" /><path d="M5 12v4c2 2 12 2 14 0v-4" /></svg><span>รายงานจำนวนนักศึกษาแรกเข้าและปัจจุบัน</span></a>
+            </div>
+
+            <button class="sidebar-subsection-toggle expanded" type="button" aria-expanded="true"><span>ด้านการวิจัย</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+            <div class="sidebar-subsection-links show">
+              <a href="#executive-research-publication" data-view-link="executive-research-publication"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5z" /></svg><span>รายงานการเผยแพร่ผลงานวิจัย</span></a>
+            </div>
+
+            <button class="sidebar-subsection-toggle expanded" type="button" aria-expanded="true"><span>ด้านการบริการวิชาการ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+            <div class="sidebar-subsection-links show">
+              <a href="#executive-academic-service" data-view-link="executive-academic-service"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12v12H6z" /><path d="M9 7V5h6v2" /></svg><span>ด้านการบริการวิชาการ</span></a>
+            </div>
+
+            <button class="sidebar-subsection-toggle expanded" type="button" aria-expanded="true"><span>ด้านการทำนุบำรุงศิลปะและวัฒนธรรม</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg></button>
+            <div class="sidebar-subsection-links show">
+              <a href="#executive-culture" data-view-link="executive-culture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a8 8 0 1 0 0-16 8 8 0 0 0 0 16z" /><path d="M12 3v2" /><path d="M8 13h8" /></svg><span>ด้านการทำนุบำรุงศิลปะและวัฒนธรรม</span></a>
+            </div>
+          </div>
+        </div>
+
+        <a class="sidebar-link" href="#hrm" data-view-link="hrm" data-hrm-entry data-mis-admin-only>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 7h16" />
+            <path d="M4 12h16" />
+            <path d="M4 17h10" />
+            <path d="M17 17h3" />
+          </svg>
+          <span data-hrm-label>จัดการข้อมูลบุคลากร</span>
+        </a>
+
+        <button class="sidebar-section-toggle" type="button" aria-expanded="false">
+          <span>แบบบันทึกข้อมูล</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+        <div class="sidebar-section-links">
+          <a href="#personal" data-view-link="personal">ข้อมูลส่วนบุคคล</a>
+          <a href="#research" data-view-link="research">งานวิจัยและนวัตกรรม</a>
+          <a href="#faculty-practice" data-view-link="faculty-practice">Faculty Practice</a>
+          <a href="#training" data-view-link="training">ชั่วโมงอบรมและพัฒนาตนเอง</a>
+          <a href="prj/index_faculty.html">บันทึกโครงการคณะ</a>
+          <a href="prj/index_university.html">บันทึกโครงการมหาวิทยาลัย</a>
+          <a href="prj/index_participation.html">บันทึกการเข้าร่วมกิจกรรม</a>
+          <a href="#">ภาระงานและผลงาน</a>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="sidebar-logout-btn" class="sidebar-logout" type="button">ออกจากระบบ</button>
+      </div>
+    </aside>
+
+    <main class="app-main">
+      <section id="home-view" class="content-view show welcome-panel">
+        <p class="eyebrow">MIS Dashboard</p>
+        <h1>หน้าหลัก</h1>
+        <p>เลือกทางลัดหรือเมนูด้านซ้ายเพื่อเข้าสู่ข้อมูลของระบบ หลังจากนี้เราจะค่อย ๆ ย้ายโมดูลเข้ามาในหลังบ้านเดียวกัน</p>
+
+        <div class="home-section-list">
+          <section class="home-system-section">
+            <div class="home-section-heading">
+              <h2>ข้อมูลส่วนบุคคลและผลงาน</h2>
+            </div>
+            <div class="home-quick-grid" aria-label="ข้อมูลส่วนบุคคลและผลงาน">
+              <a class="home-quick-card" href="#personal" data-view-link="personal">
+                <span class="home-quick-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                    <path d="M4 21a8 8 0 0 1 16 0" />
+                  </svg>
+                </span>
+                <strong>ข้อมูลส่วนบุคคล</strong>
+                <small>ดูรายละเอียดและแก้ไขข้อมูลที่อนุญาต</small>
+              </a>
+
+              <a class="home-quick-card" href="#research" data-view-link="research">
+                <span class="home-quick-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                    <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15z" />
+                  </svg>
+                </span>
+                <strong>งานวิจัยและนวัตกรรม</strong>
+                <small>บันทึกและตรวจสอบผลงานวิจัย</small>
+              </a>
+
+              <a class="home-quick-card" href="#training" data-view-link="training">
+                <span class="home-quick-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 6v6l4 2" />
+                    <path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                  </svg>
+                </span>
+                <strong>ชั่วโมงอบรม</strong>
+                <small>บันทึกชั่วโมงอบรมและพัฒนาตนเอง</small>
+              </a>
+            </div>
+          </section>
+
+          <section class="home-system-section">
+            <div class="home-section-heading">
+              <h2>โครงการและกิจกรรม</h2>
+            </div>
+            <div class="home-quick-grid" aria-label="โครงการและกิจกรรม">
+              <a class="home-quick-card" href="prj/index_faculty.html">
+                <span class="home-quick-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 5h16v14H4z" />
+                    <path d="M8 9h8" />
+                    <path d="M8 13h5" />
+                    <path d="M17 13l2 2 3-4" />
+                  </svg>
+                </span>
+                <strong>บันทึกโครงการคณะ</strong>
+                <small>บันทึกและติดตามโครงการระดับคณะ</small>
+              </a>
+
+              <a class="home-quick-card" href="prj/index_university.html">
+                <span class="home-quick-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 20h16" />
+                    <path d="M6 10h12" />
+                    <path d="M8 10v8" />
+                    <path d="M12 10v8" />
+                    <path d="M16 10v8" />
+                    <path d="M12 4l8 6H4z" />
+                  </svg>
+                </span>
+                <strong>บันทึกโครงการมหาวิทยาลัย</strong>
+                <small>เพิ่มรายการโครงการระดับมหาวิทยาลัยสำหรับอ้างอิง</small>
+              </a>
+
+              <a class="home-quick-card" href="prj/index_participation.html">
+                <span class="home-quick-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7 4h10" />
+                    <path d="M6 8h12v12H6z" />
+                    <path d="M9 12h6" />
+                    <path d="M9 16h4" />
+                  </svg>
+                </span>
+                <strong>บันทึกการเข้าร่วมกิจกรรม</strong>
+                <small>เลือกจากโครงการและกิจกรรมที่บันทึกไว้แล้ว</small>
+              </a>
+            </div>
+          </section>
+
+          <section class="home-system-section">
+            <div class="home-section-heading">
+              <h2>บริหารจัดการและรายงาน</h2>
+            </div>
+            <div class="home-quick-grid" aria-label="บริหารจัดการและรายงาน">
+              <a class="home-quick-card" href="#executive" data-view-link="executive" data-mis-admin-only>
+                <span class="home-quick-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 19V5" />
+                    <path d="M4 19h16" />
+                    <path d="M8 15l3-4 3 2 4-6" />
+                  </svg>
+                </span>
+                <strong>Dashboard ผู้บริหาร</strong>
+                <small>ภาพรวมบุคลากร งานวิจัย และสถานะข้อมูลสำคัญ</small>
+              </a>
+
+              <a class="home-quick-card" href="#hrm" data-view-link="hrm" data-hrm-entry data-mis-admin-only>
+                <span class="home-quick-icon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 7h16" />
+                    <path d="M4 12h16" />
+                    <path d="M4 17h10" />
+                  </svg>
+                </span>
+                <strong data-hrm-title>จัดการข้อมูลบุคลากร</strong>
+                <small data-hrm-caption>ไปยัง HRM และรายชื่อบุคลากร</small>
+              </a>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section id="executive-view" class="content-view executive-page">
+        <div class="section-heading executive-heading">
+          <div>
+            <p class="eyebrow">Executive Dashboard</p>
+            <h1>แดชบอร์ดผู้บริหาร</h1>
+            <p>พื้นที่รวม module สำหรับเชื่อมข้อมูลและรายงานผู้บริหารในลำดับถัดไป</p>
+          </div>
+        </div>
+
+        <div class="executive-module-list">
+          <section class="executive-module-group">
+            <h2>ด้านการบริหาร</h2>
+            <div class="executive-module-grid">
+              <a class="executive-module-card" href="#executive-budget" data-view-link="executive-budget">แผนงบประมาณประจำปี</a>
+              <a class="executive-module-card" href="#executive-personnel-stats" data-view-link="executive-personnel-stats">สถิติบุคลากร</a>
+              <a class="executive-module-card" href="#executive-teacher-ratio" data-view-link="executive-teacher-ratio">สัดส่วนอาจารย์</a>
+              <a class="executive-module-card" href="#executive-ftes" data-view-link="executive-ftes">FTES</a>
+              <a class="executive-module-card" href="#executive-lab-assets" data-view-link="executive-lab-assets">รายงานครุภัณฑ์ห้องฝึกปฏิบัติการพยาบาล</a>
+              <a class="executive-module-card" href="#executive-library-books" data-view-link="executive-library-books">รายงานหนังสือห้องสมุด</a>
+            </div>
+          </section>
+
+          <section class="executive-module-group">
+            <h2>ด้านการเรียนการสอน</h2>
+            <div class="executive-module-grid">
+              <a class="executive-module-card" href="#executive-schedule" data-view-link="executive-schedule">ตารางเรียน</a>
+              <a class="executive-module-card" href="#executive-course-count" data-view-link="executive-course-count">จำนวนรายวิชาที่เปิดการเรียนการสอน และรายวิชาที่ดำเนินการสอนแล้วเสร็จ</a>
+              <a class="executive-module-card" href="#executive-student-count" data-view-link="executive-student-count">รายงานจำนวนนักศึกษาแรกเข้าและปัจจุบัน</a>
+            </div>
+          </section>
+
+          <section class="executive-module-group">
+            <h2>ด้านการวิจัย</h2>
+            <div class="executive-module-grid">
+              <a class="executive-module-card" href="#executive-research-publication" data-view-link="executive-research-publication">รายงานการเผยแพร่ผลงานวิจัย</a>
+            </div>
+          </section>
+
+          <section class="executive-module-group">
+            <h2>ด้านการบริการวิชาการ</h2>
+            <div class="executive-module-grid">
+              <a class="executive-module-card" href="#executive-academic-service" data-view-link="executive-academic-service">รายงานโครงการด้านการบริการวิชาการ</a>
+            </div>
+          </section>
+
+          <section class="executive-module-group">
+            <h2>ด้านการทำนุบำรุงศิลปะและวัฒนธรรม</h2>
+            <div class="executive-module-grid">
+              <a class="executive-module-card" href="#executive-culture" data-view-link="executive-culture">รายงานโครงการด้านการทำนุบำรุงศิลปะและวัฒนธรรม</a>
+            </div>
+          </section>
+        </div>
+
+      </section>
+
+<section id="executive-budget-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>แผนงบประมาณประจำปี</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="แผนงบประมาณประจำปี" src="https://nurse-ru-dev.github.io/mis-graph/budget/index.html" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-personnel-stats-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>สถิติบุคลากร</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="สถิติบุคลากร" src="https://datastudio.google.com/embed/reporting/b3f81b33-a01a-4235-8719-243363dc9b8e/page/p_3n2u2n4u2d" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-teacher-ratio-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>สัดส่วนอาจารย์</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="สัดส่วนอาจารย์" src="https://nurse-ru-dev.github.io/mis-graph/lect/lecturers.html" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-ftes-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>FTES</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="FTES" src="https://nurse-ru-dev.github.io/mis-graph/ftes/FTES.html" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-lab-assets-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>รายงานครุภัณฑ์ห้องฝึกปฏิบัติการพยาบาล</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="รายงานครุภัณฑ์ห้องฝึกปฏิบัติการพยาบาล" src="https://lookerstudio.google.com/embed/reporting/a192341a-1e57-418e-b501-729404b04c6d/page/C4uqF" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-library-books-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>รายงานหนังสือห้องสมุด</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="รายงานหนังสือห้องสมุด" src="https://datastudio.google.com/embed/reporting/21a730b8-ade6-4069-88e5-bdf1d81ac9ae/page/6cjvF" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-schedule-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>ตารางเรียน</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="ตารางเรียน" src="https://nurse.ru.ac.th/images/doc/Timetable%20for%20the%20Bachelor%20of%20Nursing%20Program.pdf" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-course-count-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>จำนวนรายวิชาที่เปิดการเรียนการสอน และรายวิชาที่ดำเนินการสอนแล้วเสร็จ</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="จำนวนรายวิชาที่เปิดการเรียนการสอน และรายวิชาที่ดำเนินการสอนแล้วเสร็จ" src="https://nurse-ru-dev.github.io/mis-graph/sbj/subject.html" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-student-count-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>รายงานจำนวนนักศึกษาแรกเข้าและปัจจุบัน</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="รายงานจำนวนนักศึกษาแรกเข้าและปัจจุบัน" src="https://nurse-ru-dev.github.io/mis-graph/stdn/students.html" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-research-publication-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading compact-executive-report-heading" open>
+          <summary><h1>รายงานการเผยแพร่ผลงานวิจัย</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="รายงานการเผยแพร่ผลงานวิจัย" src="https://nurse-ru-dev.github.io/mis-graph/resch/index.html" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-academic-service-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>รายงานโครงการด้านการบริการวิชาการ</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="รายงานโครงการด้านการบริการวิชาการ" src="https://datastudio.google.com/embed/reporting/352e809e-8796-4c23-9645-c1cb48a5a5a0/page/DJjvF" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="executive-culture-view" class="content-view executive-page has-embedded-report">
+        <details class="section-heading executive-subpage-heading" open>
+          <summary><h1>รายงานโครงการด้านการทำนุบำรุงศิลปะและวัฒนธรรม</h1></summary>
+          <p class="eyebrow">Executive Dashboard</p>
+        </details>
+        <div class="executive-module-frame-wrap">
+          <iframe title="รายงานโครงการด้านการทำนุบำรุงศิลปะและวัฒนธรรม" src="https://datastudio.google.com/embed/reporting/68265e1c-40cd-444a-aa09-783bfc5cde0c/page/DJjvF" loading="lazy" referrerpolicy="no-referrer-when-downgrade" sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+        </div>
+      </section>
+
+      <section id="account-view" class="content-view profile-page">
+        <div class="section-heading">
+          <p class="eyebrow">Account</p>
+          <h1>ข้อมูลบัญชีผู้ใช้</h1>
+        </div>
+        <div class="profile-card">
+          <div class="profile-grid compact">
+            <div class="profile-field">
+              <span>ชื่อ</span>
+              <strong id="account-name">-</strong>
+            </div>
+            <div class="profile-field">
+              <span>อีเมล</span>
+              <strong id="account-email">-</strong>
+            </div>
+            <div class="profile-field">
+              <span>PERSON_ID</span>
+              <strong id="account-person-id">-</strong>
+            </div>
+            <div class="profile-field">
+              <span>บทบาท</span>
+              <strong id="account-role">-</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="personal-view" class="content-view profile-page">
+        <div class="section-heading">
+          <p class="eyebrow">Personal Record</p>
+          <h1>ข้อมูลส่วนบุคคล</h1>
+        </div>
+
+        <div id="personal-alert" class="data-alert data-alert-info">กำลังโหลดข้อมูลส่วนบุคคล...</div>
+
+        <article id="personal-card" class="profile-card" hidden>
+          <div class="profile-hero">
+            <div class="profile-photo-wrap">
+              <img id="personal-photo" class="profile-photo" src="assets/Logo.png" alt="รูปบุคลากร" />
+            </div>
+            <div>
+              <p id="personal-prefix" class="eyebrow">-</p>
+              <h2 id="personal-full-name">-</h2>
+              <p id="personal-position">-</p>
+              <div class="profile-quick-summary" aria-label="สรุปข้อมูลบุคลากร">
+                <div>
+                  <span>วุฒิสูงสุด</span>
+                  <strong id="personal-summary-education">-</strong>
+                </div>
+                <div>
+                  <span>อายุงาน</span>
+                  <strong id="personal-summary-work-age">-</strong>
+                </div>
+                <div>
+                  <span>วันเริ่มงาน</span>
+                  <strong id="personal-summary-start-date">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="profile-actions">
+              <button id="personal-edit-btn" class="btn btn-primary" type="button">แก้ไขข้อมูล</button>
+            </div>
+          </div>
+
+          <div id="personal-detail-inline" class="inline-detail-content"></div>
+        </article>
+      </section>
+
+      <section id="research-view" class="content-view research-page">
+        <div class="section-heading research-heading">
+          <div>
+            <p class="eyebrow">Research</p>
+            <h1>ผลงานวิจัย</h1>
+          </div>
+          <div class="research-actions">
+            <button class="btn btn-secondary" id="research-export-btn" type="button">Export / พิมพ์</button>
+            <button class="btn btn-primary" id="research-add-btn" type="button">เพิ่มข้อมูลวิจัย</button>
+          </div>
+        </div>
+
+        <div id="research-alert" class="data-alert data-alert-info">กำลังโหลดข้อมูลงานวิจัย...</div>
+
+        <div id="research-panel" class="research-panel" hidden>
+          <div class="research-toolbar">
+            <span id="research-total-badge" class="research-badge">0 รายการ</span>
+            <input id="research-search-input" class="form-control" type="search" placeholder="ค้นหาชื่อเรื่อง / วารสาร / ปี..." />
+          </div>
+
+          <div id="research-table-wrap" class="research-table-wrap">
+            <table class="research-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>ชื่อเรื่อง</th>
+                  <th>วารสาร</th>
+                  <th>ปี พ.ศ.</th>
+                  <th>ประเภท</th>
+                  <th>สถานะ</th>
+                  <th>ทุน</th>
+                  <th>จัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="research-tbody"></tbody>
+            </table>
+          </div>
+
+          <div id="research-mobile-cards" class="research-mobile-cards"></div>
+        </div>
+      </section>
+
+      <section id="faculty-practice-view" class="content-view research-page">
+        <div class="section-heading research-heading">
+          <div>
+            <p class="eyebrow">Faculty Practice</p>
+            <h1>Faculty Practice</h1>
+          </div>
+          <div class="research-actions">
+            <button class="btn btn-secondary" id="fp-export-btn" type="button">Export / พิมพ์</button>
+            <button class="btn btn-primary" id="fp-add-btn" type="button">เพิ่มข้อมูล FP</button>
+          </div>
+        </div>
+
+        <div id="fp-alert" class="data-alert data-alert-info">กำลังโหลดข้อมูล Faculty Practice...</div>
+
+        <div id="fp-panel" class="research-panel" hidden>
+          <div class="research-toolbar">
+            <span id="fp-total-badge" class="research-badge">0 รายการ</span>
+            <input id="fp-search-input" class="form-control" type="search" placeholder="ค้นหาปีงบ / ความเชี่ยวชาญ / สถานะ..." />
+          </div>
+
+          <div class="research-table-wrap">
+            <table class="research-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>ปีงบ พ.ศ.</th>
+                  <th>ความเชี่ยวชาญ</th>
+                  <th>ช่วงวันที่</th>
+                  <th>รูปแบบการดูแล</th>
+                  <th>กลุ่มวิชา/สาขาวิชาที่รับผิดชอบ</th>
+                  <th>สถานะ</th>
+                  <th>จัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="fp-tbody"></tbody>
+            </table>
+          </div>
+
+          <div id="fp-mobile-cards" class="research-mobile-cards"></div>
+        </div>
+      </section>
+
+      <section id="training-view" class="content-view research-page">
+        <div class="section-heading research-heading">
+          <div>
+            <p class="eyebrow">Training Hours</p>
+            <h1>ชั่วโมงอบรม</h1>
+            <p>TRAINING_HOURS</p>
+          </div>
+          <div class="research-actions">
+            <button class="btn btn-secondary" id="training-export-btn" type="button">Export / พิมพ์</button>
+            <button class="btn btn-primary" id="training-add-btn" type="button">เพิ่มข้อมูลอบรม</button>
+          </div>
+        </div>
+
+        <div id="training-alert" class="data-alert data-alert-info">กำลังโหลดข้อมูลการอบรม...</div>
+
+        <div id="training-panel" class="research-panel" hidden>
+          <div class="research-toolbar">
+            <div class="training-summary">
+              <span id="training-total-badge" class="research-badge">0 รายการ</span>
+              <span id="training-hours-badge" class="research-badge success">0 ชั่วโมง</span>
+            </div>
+            <input id="training-search-input" class="form-control" type="search" placeholder="ค้นหาหัวข้อ / สถานที่ / ประเภท..." />
+          </div>
+
+          <div class="research-table-wrap">
+            <table class="research-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>หัวข้ออบรม</th>
+                  <th>สถานที่</th>
+                  <th>ประเภท</th>
+                  <th>วันที่เริ่ม</th>
+                  <th>วันที่สิ้นสุด</th>
+                  <th>จำนวนชั่วโมง</th>
+                  <th>งบประมาณ</th>
+                  <th>จัดการ</th>
+                </tr>
+              </thead>
+              <tbody id="training-tbody"></tbody>
+            </table>
+          </div>
+
+          <div id="training-mobile-cards" class="research-mobile-cards"></div>
+        </div>
+      </section>
+
+      <section id="hrm-view" class="content-view research-page">
+        <div class="section-heading research-heading">
+          <div>
+            <p class="eyebrow">HRM</p>
+            <h1 data-hrm-title>จัดการข้อมูลบุคลากร</h1>
+            <p data-hrm-caption>เลือกหน้าที่ต้องการใช้งานจากระบบ HRM เดิม ก่อนค่อยปรับฐานข้อมูลภายในหน้าชุดนี้</p>
+          </div>
+        </div>
+
+          <div class="system-launch-grid">
+          <a class="system-launch-card" href="HRM/hrm-admin.html" data-mis-admin-only>
+            <span>สำหรับผู้ดูแลระบบ</span>
+            <strong>เพิ่มและแก้ไขข้อมูลบุคลากร</strong>
+            <small>จัดการประวัติ ข้อมูลพนักงาน การศึกษา และใบประกอบวิชาชีพ</small>
+          </a>
+          </div>
+      </section>
+
+      <footer class="app-content-footer app-footer-text">© 2026 Faculty of Nursing, Ramkhamhaeng University | Developed by Lect. Siyathorn Ponjaroenpaisarn</footer>
+    </main>
+  </div>
+
+  <div id="personal-edit-modal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div>
+          <h2>แก้ไขข้อมูลบุคลากร</h2>
+          <p>กรอกข้อมูลแยกตามหมวด เพื่อให้ง่ายต่อการตรวจสอบ</p>
+        </div>
+        <button type="button" data-close-modal="personal-edit-modal">×</button>
+      </div>
+
+      <form id="personal-edit-form" novalidate>
+        <input type="hidden" id="edit-PERSON_ID" name="PERSON_ID" />
+
+        <div class="personal-tabs personal-edit-tabs" data-personal-tabs>
+          <div class="personal-tab-list" role="tablist" aria-label="แก้ไขข้อมูลบุคลากร">
+            <button class="personal-tab-button active" type="button" role="tab" aria-selected="true" data-personal-tab="edit-profile">ข้อมูลทั่วไป</button>
+            <button class="personal-tab-button" type="button" role="tab" aria-selected="false" data-personal-tab="edit-work">ข้อมูลพนักงาน</button>
+            <button class="personal-tab-button" type="button" role="tab" aria-selected="false" data-personal-tab="edit-education">ข้อมูลการศึกษา</button>
+            <button class="personal-tab-button" type="button" role="tab" aria-selected="false" data-personal-tab="edit-license">ใบประกอบวิชาชีพ</button>
+            <button class="personal-tab-button" type="button" role="tab" aria-selected="false" data-personal-tab="edit-experience">ประสบการณ์และความเชี่ยวชาญ</button>
+          </div>
+
+          <div class="personal-tab-panel active" role="tabpanel" data-personal-panel="edit-profile">
+        <div class="form-section">
+          <h3>1. ประวัติส่วนตัว</h3>
+          <div class="photo-upload">
+            <img id="edit-photo-preview" src="" alt="" />
+            <div id="edit-photo-text">รูปภาพบุคลากร</div>
+          </div>
+          <div class="form-grid">
+            <label>คำนำหน้า
+              <select id="edit-PREFIX" name="PREFIX" required>
+                <option value="">เลือก</option>
+                <option>นาย</option>
+                <option>นาง</option>
+                <option>นางสาว</option>
+                <option>ผศ.</option>
+                <option>รศ.</option>
+                <option>ศ.</option>
+                <option>ดร.</option>
+                <option>อาจารย์</option>
+                <option>ผศ.ดร.</option>
+                <option>รศ.ดร.</option>
+                <option>ศ.ดร.</option>
+              </select>
+            </label>
+            <label>ชื่อ <input id="edit-FIRST_NAME" name="FIRST_NAME" data-name-source required /></label>
+            <label>นามสกุล <input id="edit-LAST_NAME" name="LAST_NAME" data-name-source required /></label>
+            <label>ชื่อเต็ม <input id="edit-FULL_NAME" name="FULL_NAME" readonly class="readonly" /></label>
+            <label>อีเมล <input id="edit-EMAIL" name="EMAIL" type="email" readonly class="readonly" required /></label>
+            <label>วันเดือนปีเกิด
+              <div class="thai-date-control" data-thai-date-control>
+                <input id="edit-BIRTHDATE_TEXT" name="BIRTHDATE_TEXT" type="text" required inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input data-thai-date-fallback-field="BIRTHDATE_TEXT" />
+                <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+              </div>
+            </label>
+          </div>
+        </div>
+          </div>
+
+          <div class="personal-tab-panel" role="tabpanel" data-personal-panel="edit-work">
+        <div class="form-section locked-section">
+          <h3>2. ข้อมูลพนักงาน</h3>
+          <p class="section-note">ข้อมูลพนักงานล็อกไว้ ไม่ถูกส่งไปบันทึกทับ ยกเว้นตำแหน่งวิชาการที่ผู้ใช้แก้ไขได้</p>
+          <div class="form-grid">
+            <label>กลุ่มงาน <input id="edit-WORK_GROUP" name="WORK_GROUP" disabled /></label>
+            <label>ตำแหน่ง <input id="edit-POSITION" name="POSITION" disabled /></label>
+            <label>ตำแหน่งวิชาการ
+              <select id="edit-ACADEMIC_POSITION" name="ACADEMIC_POSITION">
+                <option value="">เลือก</option>
+                <option>อาจารย์</option>
+                <option>ผู้ช่วยศาสตราจารย์</option>
+                <option>รองศาสตราจารย์</option>
+                <option>ศาสตราจารย์</option>
+              </select>
+            </label>
+            <label data-executive-only>ผู้บริหาร <input id="edit-IS_EXECUTIVE" name="IS_EXECUTIVE" disabled /></label>
+            <label data-executive-only>ลำดับผู้บริหาร <input id="edit-EXECUTIVE_ORDER" name="EXECUTIVE_ORDER" disabled /></label>
+            <label>สัญญาจ้าง <input id="edit-contract" name="สัญญาจ้าง" disabled /></label>
+            <label>หน่วยงานภายใน <input id="edit-DEPARTMENT" name="DEPARTMENT" disabled /></label>
+            <label>ประเภทการจ้าง <input id="edit-EMPLOYMENT_TYPE" name="EMPLOYMENT_TYPE" disabled /></label>
+            <label>เลขที่พนักงาน <input id="edit-EMPLOYEE_NO" name="EMPLOYEE_NO" disabled /></label>
+            <label>วันที่เริ่มงาน พ.ศ. <input id="edit-START_DATE_CE" name="START_DATE_CE" disabled /></label>
+            <label>ปีงบเริ่มงาน <input id="edit-START_FISCAL_YEAR" name="START_FISCAL_YEAR" disabled /></label>
+            <label>สถานะปฏิบัติงาน <input id="edit-WORK_STATUS" name="WORK_STATUS" disabled /></label>
+            <label>อายุงาน <input id="edit-WORK_AGE" name="WORK_AGE" disabled /></label>
+          </div>
+        </div>
+          </div>
+
+          <div class="personal-tab-panel" role="tabpanel" data-personal-panel="edit-license">
+        <div class="form-section">
+          <h3>3. ใบประกอบวิชาชีพการพยาบาลและการผดุงครรภ์</h3>
+          <div class="form-grid">
+            <label>เลขที่ใบประกอบวิชาชีพการพยาบาลและการผดุงครรภ์ <input id="edit-PERMIT_CARD_CODE" name="PERMIT_CARD_CODE" required /></label>
+            <label>วันหมดอายุ
+              <div class="thai-date-control" data-thai-date-control>
+                <input id="edit-PERMIT_EXP" name="PERMIT_EXP" type="text" required inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input data-thai-date-fallback-field="PERMIT_EXP" />
+                <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+              </div>
+              <small class="field-hint">กรุณาลงเป็น พ.ศ. เช่น 13/11/2569</small>
+            </label>
+            <p class="field-hint license-formula-hint">เวลาคงเหลือ วันที่แจ้งเตือนต่ออายุ และสถานะใบประกอบ จะเปลี่ยนแปลงภายหลังกดบันทึก</p>
+            <label>เวลาคงเหลือ <input id="edit-TIME_REMAINING" disabled class="readonly" /></label>
+            <label>วันที่แจ้งเตือนต่ออายุ <input id="edit-RENEWAL_NOTICE_DATE" disabled class="readonly" /></label>
+            <label>สถานะใบประกอบ <input id="edit-NOTICE_FLAG" disabled class="readonly" /></label>
+          </div>
+        </div>
+          </div>
+
+          <div class="personal-tab-panel" role="tabpanel" data-personal-panel="edit-education">
+        <div class="form-section">
+          <h3>3. ข้อมูลการศึกษา</h3>
+          <div class="derived-grid">
+            <label>วุฒิสูงสุด <input id="edit-HIGHEST_EDUCATION" name="HIGHEST_EDUCATION" readonly class="readonly" /></label>
+            <label>สาขาการพยาบาล <input id="edit-NURSING_FIELD" name="NURSING_FIELD" readonly class="readonly" /></label>
+          </div>
+
+          <div class="education-editor" data-education-editor></div>
+
+          <input type="hidden" id="edit-BACHELOR_DEGREE" name="BACHELOR_DEGREE" />
+          <input type="hidden" id="edit-BACHELOR_MAJOR" name="BACHELOR_MAJOR" />
+          <input type="hidden" id="edit-BACHELOR_DEGREES_INST_ID" name="BACHELOR_DEGREES_INST_ID" />
+          <input type="hidden" id="edit-BACHELOR_DEGREES_YEAR" name="BACHELOR_DEGREES_YEAR" />
+          <input type="hidden" id="edit-MASTER_DEGREE" name="MASTER_DEGREE" />
+          <input type="hidden" id="edit-MASTER_MAJOR" name="MASTER_MAJOR" />
+          <input type="hidden" id="edit-MASTER_DEGREES_INST_ID" name="MASTER_DEGREES_INST_ID" />
+          <input type="hidden" id="edit-MASTER_DEGREES_YEAR" name="MASTER_DEGREES_YEAR" />
+          <input type="hidden" id="edit-DOCTORAL_DEGREE" name="DOCTORAL_DEGREE" />
+          <input type="hidden" id="edit-DOCTORAL_MAJOR" name="DOCTORAL_MAJOR" />
+          <input type="hidden" id="edit-DOCTORAL_DEGREES_OTHER_ID" name="DOCTORAL_DEGREES_OTHER_ID" />
+          <input type="hidden" id="edit-DOCTORAL_DEGREES_YEAR" name="DOCTORAL_DEGREES_YEAR" />
+          <input type="hidden" id="edit-MASTER_DEGREES_OTHER_NAME" name="MASTER_DEGREES_OTHER_NAME" />
+          <input type="hidden" id="edit-MASTER_DEGREES_OTHER_MAJOR_ID" name="MASTER_DEGREES_OTHER_MAJOR_ID" />
+          <input type="hidden" id="edit-MASTER_DEGREES_OTHER_INST_ID" name="MASTER_DEGREES_OTHER_INST_ID" />
+          <input type="hidden" id="edit-MASTER_DEGREES_OTHER_YEAR" name="MASTER_DEGREES_OTHER_YEAR" />
+          <input type="hidden" id="edit-EDUCATION_ROWS" name="EDUCATION_ROWS" />
+
+        </div>
+          </div>
+
+          <div class="personal-tab-panel" role="tabpanel" data-personal-panel="edit-experience">
+        <div class="form-section">
+          <h3>5. ประสบการณ์และความเชี่ยวชาญ</h3>
+          <div class="form-grid">
+            <label class="form-row-full">ประสบการณ์พยาบาล <textarea id="edit-EXPERENCE_NURSE" name="EXPERENCE_NURSE" rows="4"></textarea></label>
+            <label class="form-row-full">ประสบการณ์สอน <textarea id="edit-EXPERENCE_TEACH" name="EXPERENCE_TEACH" rows="4"></textarea></label>
+            <label class="form-row-full">ความเชี่ยวชาญ <textarea id="edit-PROFICIENCY" name="PROFICIENCY" rows="4"></textarea></label>
+          </div>
+        </div>
+          </div>
+        </div>
+
+        <div id="edit-alert" class="data-alert data-alert-info" hidden></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close-modal="personal-edit-modal">ยกเลิก</button>
+          <button id="personal-save-btn" class="btn btn-primary" type="submit">บันทึกข้อมูล</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="research-modal" class="modal hidden">
+    <div class="modal-box research-modal-box">
+      <div class="modal-head">
+        <div>
+          <h2 id="research-modal-title">เพิ่มผลงานวิจัย</h2>
+          <p>กรอกข้อมูลผลงานวิจัยตามแบบฟอร์มเดิมของ MIS</p>
+        </div>
+        <button type="button" data-close-modal="research-modal">×</button>
+      </div>
+
+      <form id="research-form" novalidate>
+        <input type="hidden" name="RESEARCH_ID" id="research-form-key-id" />
+        <input type="hidden" name="ROW_INDEX" id="research-form-row-index" />
+
+        <div id="research-form-alert" class="data-alert data-alert-error" hidden></div>
+        <p class="required-note"><span class="required-star">*</span> ต้องลงข้อมูลให้ครบ</p>
+
+        <div class="form-section">
+          <h3>ข้อมูลงานวิจัย</h3>
+          <div class="form-grid">
+            <label class="form-row-full">ชื่อเรื่อง / Title <input type="text" name="TITLE" required placeholder="ชื่อบทความหรือชื่องานวิจัย" /></label>
+            <label>ประเภท (TYPE)
+              <select name="TYPE" required>
+                <option value="">-- เลือก --</option>
+                <option>วิจัย</option>
+                <option>บทความ</option>
+                <option>หนังสือ</option>
+                <option>ตำรา</option>
+                <option>Proceeding</option>
+                <option>โครงร่างวิจัย</option>
+              </select>
+            </label>
+            <label>สถานะผลงานวิจัย
+              <input type="text" id="research-status-display" value="กำลังดำเนินการ" readonly class="readonly" />
+              <input type="hidden" name="RESEARCH_STATUS" id="research-status-input" value="กำลังดำเนินการ" />
+            </label>
+            <label>สถานะการตีพิมพ์
+              <select name="PUBLISH_STATUS" id="publish-status" required>
+                <option>โครงร่าง</option>
+                <option>ตีพิมพ์</option>
+                <option>Accepted</option>
+                <option>Peer Review</option>
+                <option>เก็บข้อมูล</option>
+                <option>ขอ IRB</option>
+              </select>
+            </label>
+            <label>กลุ่มวิชา
+              <select name="สาขาวิชา" id="research-subject-group-input" required>
+                <option value="">-- เลือก --</option>
+                <option>กลุ่มวิชาการพยาบาลผู้ใหญ่และผู้สูงอายุ</option>
+                <option>กลุ่มวิชาการพยาบาลเด็กและวัยรุ่น</option>
+                <option>กลุ่มวิชาการพยาบาลสุขภาพจิตและจิตเวช</option>
+                <option>กลุ่มวิชาการพยาบาลมารดาทารกและการผดุงครรภ์</option>
+                <option>กลุ่มวิชาการพยาบาลอนามัยชุมชน</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>ข้อมูลทุนวิจัย</h3>
+          <div class="form-grid">
+            <label>ทุน
+              <select name="FUND_STATUS" id="fund-status" required>
+                <option value="">-- เลือก --</option>
+                <option>มี</option>
+                <option>ไม่มี</option>
+              </select>
+            </label>
+            <label>แหล่งทุน <input type="text" name="FUND_SOURCE" id="fund-source-input" placeholder="แหล่งทุน" /></label>
+            <label>จำนวนเงิน (บาท) <input type="number" name="FUND_AMOUNT" id="fund-amount-input" min="0" placeholder="0" /></label>
+          </div>
+        </div>
+
+        <div class="form-section" id="research-publication-section">
+          <h3>วารสารที่ตีพิมพ์ หรือข้อมูลการตีพิมพ์</h3>
+          <div class="form-grid">
+            <label class="form-row-full">วารสาร / Journal <input type="text" name="JOURNAL" id="journal-input" placeholder="ชื่อวารสาร" /></label>
+            <label>ปี พ.ศ. <input type="number" name="YEAR_BE" id="year-be-input" placeholder="เช่น 2567" /></label>
+            <label id="index-status-group">ฐานข้อมูล
+              <select name="INDEX_STATUS" id="index-status-input">
+                <option value="">-- เลือก --</option>
+                <option>TCI 1</option>
+                <option>TCI 2</option>
+                <option>ต่างประเทศ</option>
+                <option>ไม่ระบุ</option>
+              </select>
+            </label>
+            <label>บทบาทในงานวิจัย
+              <select name="AUTHOR_LEVEL" id="author-level-input">
+                <option value="">-- เลือก --</option>
+                <option>First Author</option>
+                <option>Corresponding Author</option>
+                <option>Co-Author</option>
+              </select>
+            </label>
+            <label class="form-row-full">ลิงก์ (LINK) งานวิจัย <input type="url" name="LINK" id="link-input" placeholder="https://doi.org/..." /></label>
+            <label id="research-ref-group" class="form-row-full">อ้างอิง (ref)
+              <textarea name="ref" id="ref-input" rows="3" placeholder="รายละเอียดอ้างอิงของผลงานที่ตีพิมพ์"></textarea>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close-modal="research-modal">ยกเลิก</button>
+          <button id="research-save-btn" class="btn btn-primary" type="submit">บันทึก</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="fp-modal" class="modal hidden">
+    <div class="modal-box research-modal-box">
+      <div class="modal-head">
+        <div>
+          <h2 id="fp-modal-title">เพิ่มข้อมูล Faculty Practice</h2>
+          <p>กรอกข้อมูล Faculty Practice ตามตาราง FP</p>
+        </div>
+        <button type="button" data-close-modal="fp-modal">×</button>
+      </div>
+
+      <form id="fp-form" novalidate>
+        <input type="hidden" name="FP_ID" id="fp-form-key-id" />
+        <input type="hidden" name="ROW_INDEX" id="fp-form-row-index" />
+
+        <div id="fp-form-alert" class="data-alert data-alert-error" hidden></div>
+
+        <div class="form-section">
+          <h3>ข้อมูลหลัก</h3>
+          <div class="form-grid">
+            <label>รหัสบุคลากร <input type="text" name="PERSON_ID" readonly class="readonly" /></label>
+            <label>ปีงบ พ.ศ. <input type="number" name="ปีงบ พ.ศ." placeholder="เช่น 2569" required /></label>
+            <label class="form-row-full">ความเชี่ยวชาญ <textarea name="ความเชี่ยวชาญ" rows="4" required></textarea></label>
+            <label>กลุ่มวิชา/สาขาวิชาที่รับผิดชอบ
+              <select name="กลุ่มวิชา/สาขาวิชาที่รับผิดชอบ">
+                <option value="">-- เลือก --</option>
+                <option>การพยาบาลเด็กและวัยรุ่น</option>
+                <option>การพยาบาลผู้ใหญ่และผู้สูงอายุ</option>
+                <option>การพยาบาลมารดาทารกและการผดุงครรภ์</option>
+                <option>การพยาบาลสุขภาพจิตและจิตเวช</option>
+                <option>การพยาบาลอนามัยชุมชน</option>
+              </select>
+            </label>
+            <label>สถานะการดำเนินการ
+              <select name="สถานะการดำเนินการ">
+                <option value="">-- เลือก --</option>
+                <option>กำลังดำเนินการ</option>
+                <option>ดำเนินการเสร็จสิ้น</option>
+                <option>รอตรวจสอบ</option>
+                <option>ยกเลิก</option>
+              </select>
+            </label>
+            <div class="fp-date-plan form-row-full">
+              <h4>วันที่วางแผนปฏิบัติ</h4>
+              <div class="fp-date-grid">
+                <label>วันที่เริ่ม
+                  <div class="thai-date-control" data-thai-date-control>
+                    <input type="text" name="Start_date" inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input />
+                    <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+                  </div>
+                </label>
+                <label>วันที่สิ้นสุด
+                  <div class="thai-date-control" data-thai-date-control>
+                    <input type="text" name="End_date" inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input />
+                    <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>รายละเอียดการดูแล</h3>
+          <div class="form-grid">
+            <div class="fp-check-field form-row-full">
+              <span class="fp-check-title">รูปแบบการดูแล</span>
+              <input type="hidden" id="fp-care-model-value" name="รูปแบบการดูแล" />
+              <div id="fp-care-model" class="fp-care-tree"></div>
+              <input type="hidden" id="fp-care-model-sub-value" name="รูปแบบการดูแล_รายการย่อย" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section fp-link-section">
+          <h3>Link เอกสาร Faculty Practice</h3>
+          <p class="section-note">อัปโหลด PDF รวม 1 ไฟล์ ขนาดไม่เกิน 10 MB ระบบจะบันทึกลิงก์เอกสารให้อัตโนมัติ</p>
+          <div class="form-grid">
+            <label class="form-row-full">เอกสาร Faculty Practice (PDF)
+              <input type="file" id="fp-document-file-input" accept="application/pdf,.pdf" />
+            </label>
+            <input type="hidden" name="Link เอกสาร FP" id="fp-document-link-input" />
+            <input type="hidden" id="fp-document-remove-input" />
+            <p class="section-note form-row-full" id="fp-document-current-link"></p>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close-modal="fp-modal">ยกเลิก</button>
+          <button id="fp-save-btn" class="btn btn-primary" type="submit">บันทึก</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="training-modal" class="modal hidden">
+    <div class="modal-box research-modal-box">
+      <div class="modal-head">
+        <div>
+          <h2 id="training-modal-title">เพิ่มข้อมูลการอบรม</h2>
+          <p>กรอกข้อมูลการอบรม/ดูงานตามแบบฟอร์มเดิมของ MIS</p>
+        </div>
+        <button type="button" data-close-modal="training-modal">×</button>
+      </div>
+
+      <form id="training-form" novalidate>
+        <input type="hidden" name="TRAINING_ID" id="training-form-key-id" />
+        <input type="hidden" name="ROW_INDEX" id="training-form-row-index" />
+
+        <div id="training-form-alert" class="data-alert data-alert-error" hidden></div>
+
+        <div class="form-section">
+          <h3>ข้อมูลคำสั่ง</h3>
+          <div class="form-grid">
+            <label>เลขที่คำสั่ง <input type="text" name="ORDER_NO" placeholder="เลขที่คำสั่ง" /></label>
+            <label>วันที่ออกคำสั่ง
+              <div class="thai-date-control" data-thai-date-control>
+                <input type="text" name="ORDER_DATE" inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input />
+                <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>ข้อมูลการอบรม/ดูงาน</h3>
+          <div class="form-grid">
+            <label class="form-row-full">หัวข้ออบรม/ดูงาน <input type="text" name="TRAINING_TITLE" required placeholder="หัวข้อการอบรมหรือดูงาน" /></label>
+            <label>สถานที่อบรม/ดูงาน <input type="text" name="TRAINING_LOCATION" placeholder="สถานที่" /></label>
+            <label>ประเภทการอบรม
+              <select name="TRAINING_TYPE">
+                <option value="">-- เลือก --</option>
+                <option>วิชาการ</option>
+                <option>วิชาชีพ</option>
+                <option>บริหาร</option>
+                <option>อื่นๆ</option>
+              </select>
+            </label>
+            <div class="training-date-row form-row-full">
+              <label>วันที่เริ่มการอบรม
+                <div class="thai-date-control" data-thai-date-control>
+                  <input type="text" name="START_DATE" id="training-start-date" inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input />
+                  <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+                </div>
+              </label>
+              <label>วันที่สิ้นสุดการอบรม
+                <div class="thai-date-control" data-thai-date-control>
+                  <input type="text" name="END_DATE" id="training-end-date" inputmode="numeric" placeholder="วว/ดด/ปปปป พ.ศ." autocomplete="off" data-thai-date-input />
+                  <button type="button" class="thai-date-button" aria-label="เลือกวันที่" data-thai-date-toggle>ปฏิทิน</button>
+                </div>
+              </label>
+            </div>
+            <div class="training-hours-row form-row-full">
+              <label>จำนวนชั่วโมงที่อบรม <input type="number" name="HOURS" id="training-hours-input" min="0" step="0.5" required placeholder="0" /></label>
+              <label class="training-half-day-option">
+                <input type="checkbox" id="training-half-day-checkbox" />
+                <span>ครึ่งวัน / กรอกชั่วโมงเอง</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>งบประมาณ</h3>
+          <p class="training-budget-warning">ไม่ต้องลงงบประมาณของโครงการ ลงงบประมาณคือค่าใช้จ่ายในการอบรมนั้นๆ ของแต่ละบุคคล</p>
+          <div class="form-grid">
+            <label>ประเภทงบประมาณ
+              <select name="BUDGET_TYPE">
+                <option value="">-- เลือก --</option>
+                <option>งบพัฒนาตนเอง</option>
+                <option>งบส่วนตัว</option>
+                <option>ไม่เสียเงิน</option>
+              </select>
+            </label>
+            <label>งบประมาณ (บาท) <input type="number" name="BUDGET_AMOUNT" min="0" placeholder="0" /></label>
+            <div class="form-row-full fp-link-section">
+              <h3>Link บันทึกไปอบรม/ดูงาน</h3>
+              <p class="training-link-warning">ต้องตั้งค่าแชร์ไฟล์ให้ “ทุกคนที่มีลิงก์ดูได้” หรือ “เฉพาะบัญชี @rumail.ru.ac.th ดูได้” ก่อนบันทึก ระบบตรวจได้เฉพาะลิงก์สาธารณะเท่านั้น</p>
+              <label>ลิงก์ไฟล์ Google Drive / เอกสารแนบ
+                <input type="url" name="ATTACHMENT_URL" id="training-attachment-url" placeholder="https://drive.google.com/..." />
+              </label>
+              <div class="training-link-check-row">
+                <button type="button" class="btn btn-secondary btn-small" id="training-check-link-btn">ตรวจลิงก์</button>
+                <span id="training-link-check-result"></span>
+              </div>
+              <p class="section-note form-row-full" id="training-current-attachment"></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close-modal="training-modal">ยกเลิก</button>
+          <button id="training-save-btn" class="btn btn-primary" type="submit">บันทึก</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="change-password-modal" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div>
+          <h2>เปลี่ยนรหัสผ่าน</h2>
+          <p>ตั้งรหัสผ่านใหม่สำหรับบัญชี MIS ที่กำลังใช้งานอยู่</p>
+        </div>
+        <button type="button" data-close-modal="change-password-modal">×</button>
+      </div>
+
+      <form id="change-password-form" novalidate>
+        <div id="change-password-alert" class="data-alert data-alert-info" hidden></div>
+
+        <div class="form-section">
+          <div class="form-grid">
+            <label class="form-row-full">รหัสผ่านปัจจุบัน <input id="current-password" type="password" name="currentPassword" autocomplete="current-password" required /></label>
+            <label>รหัสผ่านใหม่ <input id="new-password" type="password" name="newPassword" autocomplete="new-password" required /></label>
+            <label>ยืนยันรหัสผ่านใหม่ <input id="confirm-new-password" type="password" name="confirmPassword" autocomplete="new-password" required /></label>
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close-modal="change-password-modal">ยกเลิก</button>
+          <button id="change-password-save-btn" class="btn btn-primary" type="submit">บันทึกรหัสผ่าน</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.min.js?v=20260809-all-thai-date-control"></script>
+  <script>initHomePage();</script>
+</body>
+</html>

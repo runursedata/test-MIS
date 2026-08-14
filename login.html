@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ — คณะพยาบาลศาสตร์</title>
+  <meta name="description" content="ระบบสารสนเทศเพื่อการตัดสินใจ คณะพยาบาลศาสตร์" />
+  <link rel="icon" type="image/png" href="assets/Logo.png" />
+  <link rel="apple-touch-icon" href="assets/Logo.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="login-page">
+  <div class="login-wrapper">
+    <div class="login-left">
+      <div class="login-left-inner">
+        <div class="login-left-copy">
+          <div class="login-left-kicker">RUNS MIS</div>
+          <div class="login-left-title">
+            <span>ระบบสารสนเทศ</span>
+            <span>เพื่อการตัดสินใจ</span>
+          </div>
+          <div class="login-left-subtitle">คณะพยาบาลศาสตร์</div>
+          <div class="login-left-note">มหาวิทยาลัยรามคำแหง</div>
+        </div>
+        <div class="login-left-lock" aria-hidden="true">
+          <svg width="84" height="84" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 11V8a4 4 0 118 0v3m-9 0h10a2 2 0 012 2v5a2 2 0 01-2 2H7a2 2 0 01-2-2v-5a2 2 0 012-2zm5 3v2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-right">
+      <div class="login-mobile-title">RUNS MIS</div>
+      <div class="login-brand">
+        <div class="login-brand-logo">
+          <img src="assets/Logo.png" alt="Faculty of Nursing Logo" width="90" height="90" />
+        </div>
+        <h1>RUNS MIS</h1>
+        <p>คณะพยาบาลศาสตร์ มหาวิทยาลัยรามคำแหง</p>
+      </div>
+
+      <div class="login-card">
+        <div class="login-logo">
+          <h2>Login - เข้าสู่ระบบ</h2>
+          <p>RUNS MIS</p>
+        </div>
+
+        <div id="login-alert" class="alert alert-info"></div>
+
+        <form id="login-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="email">อีเมล <span class="required">*</span></label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="example@university.ac.th"
+              autocomplete="email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="password">รหัสผ่าน <span class="required">*</span></label>
+            <div class="input-group">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                placeholder="••••••••"
+                autocomplete="current-password"
+                required
+              />
+              <button type="button" class="input-group-btn" id="toggle-password" title="แสดง/ซ่อนรหัสผ่าน" aria-label="แสดงหรือซ่อนรหัสผ่าน">
+                <svg id="password-eye-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full btn-lg login-submit-btn" id="login-btn">
+            เข้าสู่ระบบ
+          </button>
+
+          <div class="login-alt-action">
+            <button id="first-use-btn" class="btn btn-secondary btn-full" type="button">
+              เข้าใช้งานครั้งแรก
+            </button>
+          </div>
+        </form>
+
+        <button type="button" class="login-help" id="forgot-password-btn">ลืมรหัสผ่าน ?</button>
+
+        <div id="setup-card" class="first-password-card">
+          <h3>ตั้งรหัสผ่านครั้งแรก</h3>
+          <div id="setup-alert" class="alert alert-info"></div>
+          <form id="setup-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="setup-email">อีเมล <span class="required">*</span></label>
+              <input
+                id="setup-email"
+                class="form-control"
+                type="email"
+                autocomplete="username"
+                required
+                placeholder="name@rumail.ru.ac.th"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="setup-phone">เบอร์โทรศัพท์ <span class="required">*</span></label>
+              <input
+                id="setup-phone"
+                class="form-control"
+                type="tel"
+                autocomplete="tel"
+                required
+                placeholder="08X-XXX-XXXX"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="setup-password">รหัสผ่านใหม่ <span class="required">*</span></label>
+              <input
+                id="setup-password"
+                class="form-control"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="อย่างน้อย 6 ตัวอักษร"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="setup-confirm">ยืนยันรหัสผ่านใหม่ <span class="required">*</span></label>
+              <input
+                id="setup-confirm"
+                class="form-control"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="กรอกรหัสผ่านอีกครั้ง"
+              />
+            </div>
+            <button id="setup-btn" class="btn btn-primary btn-full" type="submit">
+              บันทึกรหัสผ่าน
+            </button>
+          </form>
+        </div>
+
+        <div id="forgot-card" class="first-password-card">
+          <h3>ลืมรหัสผ่าน</h3>
+          <p>กรอกอีเมลที่ใช้ในระบบ แล้วระบบจะส่งลิงก์สำหรับตั้งรหัสผ่านใหม่ไปที่อีเมลนั้น</p>
+          <div id="forgot-alert" class="alert alert-info"></div>
+          <form id="forgot-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="forgot-email">อีเมล <span class="required">*</span></label>
+              <input
+                id="forgot-email"
+                class="form-control"
+                type="email"
+                autocomplete="username"
+                required
+                placeholder="name@rumail.ru.ac.th"
+              />
+            </div>
+            <button id="forgot-submit-btn" class="btn btn-primary btn-full" type="submit">
+              ส่งอีเมลรีเซ็ตรหัสผ่าน
+            </button>
+          </form>
+        </div>
+
+        <div id="reset-card" class="first-password-card">
+          <h3>ตั้งรหัสผ่านใหม่</h3>
+          <p>กรอกรหัสผ่านใหม่สำหรับบัญชีของท่าน</p>
+          <div id="reset-alert" class="alert alert-info"></div>
+          <form id="reset-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="reset-password">รหัสผ่านใหม่ <span class="required">*</span></label>
+              <input
+                id="reset-password"
+                class="form-control"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="อย่างน้อย 6 ตัวอักษร"
+              />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reset-confirm">ยืนยันรหัสผ่านใหม่ <span class="required">*</span></label>
+              <input
+                id="reset-confirm"
+                class="form-control"
+                type="password"
+                autocomplete="new-password"
+                minlength="6"
+                required
+                placeholder="กรอกรหัสผ่านอีกครั้ง"
+              />
+            </div>
+            <button id="reset-submit-btn" class="btn btn-primary btn-full" type="submit">
+              บันทึกรหัสผ่านใหม่
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="login-footer app-footer-text">© 2026 Faculty of Nursing, Ramkhamhaeng University | Developed by Lect. Siyathorn Ponjaroenpaisarn</footer>
+
+  <script src="app.min.js?v=20260730-login-stable"></script>
+  <script>initLoginPage();</script>
+</body>
+</html>
